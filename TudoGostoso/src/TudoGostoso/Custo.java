@@ -1,10 +1,10 @@
 package TudoGostoso;
 
 public class Custo {
-    Integer idCusto;
+    int idCusto;
     String custo;
 
-    public Custo(Integer idCusto, String custo){
+    public Custo(int idCusto, String custo){
         this.idCusto = idCusto;
         this.custo = custo;
     }

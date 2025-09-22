@@ -3,12 +3,13 @@ package TudoGostoso;
 
 
 public class Receita {
+    // Variaveis primitivas
     int IdReceita;
     String titulo;
     String descricao;
     String imagem;
 
-
+    // Objetos
     Custo custo;
     Categoria categoria;
     Preparo preparo;
