@@ -1,4 +1,5 @@
 package TudoGostoso;
+import java.util.ArrayList;
 
 
 
@@ -14,6 +15,7 @@ public class Receita {
     Categoria categoria;
     Preparo preparo;
     Utensilio utensilio;
+    
 
     public Receita(int IdReceita, String titulo, String descricao, String imagem,Custo custo, Categoria categoria, Preparo preparo, Utensilio utensilio){
         this.IdReceita = IdReceita;
@@ -24,6 +26,7 @@ public class Receita {
         this.categoria = categoria;
         this.preparo = preparo;
         this.utensilio = utensilio;
+        
     }
 
 }

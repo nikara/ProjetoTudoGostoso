@@ -11,5 +11,10 @@ public class Categoria {
         this.Categoria = Categoria;
         this.Status = Status;
     }
+
+    @Override
+    public String toString(){
+        return "Categoria { id = '"+ idCategoria +"', Categoria = " + Categoria + ", Status= " + Status + " }";
+    }
     
 }

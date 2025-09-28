@@ -38,36 +38,50 @@ public class Sistema {
             
             int i = sc.nextInt();
 
+
             switch (i) {
                 case 1:
+                
+                //Categoria
                 System.out.println(" 1 - Adicionar Categoria ");
                 System.out.println(" 2 - Listar Categoria ");
                     int x = sc.nextInt();
                     if(x == 1){
+                        
                         System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
+                        int ID = 12;
+                        //int ID = sc.nextInt();
+                        
                         System.out.println("Digite a Categoria");
-                        String categoriaString = sc.next();
+                        String categoriaString = "ruim";
+                        //String categoriaString = sc.next();
+                        
                         System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
-                        int CondicaoStatus = sc.nextInt();
+                        int CondicaoStatus = 1;
+                        //int CondicaoStatus = sc.nextInt();
                         Boolean StatusBool;
+                        
                         if (CondicaoStatus == 1){
                             StatusBool = true;
                         }else{
                             StatusBool = false;
                         }
+
                         Categoria categoria = new Categoria(ID, categoriaString, StatusBool);
                         categoriaArray.add(categoria);
+
                     }else if (x == 2){
-                        for (Categoria categoria : categoriaArray) {
-                            System.out.println();
+                        for( Categoria c : categoriaArray){
+                            System.out.println(c);
                         }
 
                     }
+
                     x = 0;
                     break;
                 case 2:
 
+                // Custo
                 System.out.println(" 1 - Adicionar Custo ");
                 System.out.println(" 2 - Listar Custo ");
                     x = sc.nextInt();
@@ -87,6 +101,8 @@ public class Sistema {
                     x = 0;
                     break;
                 case 3:
+
+                //Preparo
                 System.out.println(" 1 - Adicionar Preparo ");
                 System.out.println(" 2 - Listar Preparo ");
                     x = sc.nextInt();
@@ -109,6 +125,8 @@ public class Sistema {
                     x = 0;
                     break;
                 case 4:
+
+                // Utensilio
                 System.out.println(" 1 - Adicionar Utensilio ");
                 System.out.println(" 2 - Listar Utensilio ");
                     x = sc.nextInt();
@@ -128,6 +146,7 @@ public class Sistema {
                     
                     break;
                 case 5:
+                // Receita
                 System.out.println(" 1 - Adicionar Receita ");
                 System.out.println(" 2 - Listar Receita ");
                     
