@@ -49,16 +49,13 @@ public class Sistema {
                     if(x == 1){
                         
                         System.out.println("Digite o ID");
-                        int ID = 12;
-                        //int ID = sc.nextInt();
+                        int ID = sc.nextInt();
                         
                         System.out.println("Digite a Categoria");
-                        String categoriaString = "ruim";
-                        //String categoriaString = sc.next();
+                        String categoriaString = sc.next();
                         
                         System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
-                        int CondicaoStatus = 1;
-                        //int CondicaoStatus = sc.nextInt();
+                        int CondicaoStatus = sc.nextInt();
                         Boolean StatusBool;
                         
                         if (CondicaoStatus == 1){
@@ -78,6 +75,7 @@ public class Sistema {
                     }
 
                     x = 0;
+
                     break;
                 case 2:
 
@@ -92,13 +90,15 @@ public class Sistema {
                         String custoString = sc.nextLine();
                         Custo custo = new Custo(ID, custoString);
                         custoArray.add(custo);
+
                     }else if (x == 2){
                         for (Custo custo : custoArray) {
-                            System.out.println(custoArray);
+                            System.out.println(custo);
                         }
 
                     }
                     x = 0;
+
                     break;
                 case 3:
 
@@ -117,12 +117,15 @@ public class Sistema {
                         int tempoDePreparo = sc.nextInt();
 
                         Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
+                        preparoArray.add(preparo);
                     }else if (x == 2){
                         for (Preparo preparo : preparoArray) {
-                            System.out.println(preparoArray);
+                            System.out.println(preparo);
                         }
                     }
+
                     x = 0;
+
                     break;
                 case 4:
 
@@ -137,11 +140,13 @@ public class Sistema {
                         String utensilioString = sc.nextLine();
 
                         Utensilio utensilio = new Utensilio(ID, utensilioString);
+                        utensilioArray.add(utensilio);
                     }else if (x == 2){
                         for (Utensilio utensilio : utensilioArray){
-                            System.out.println(utensilioArray);
+                            System.out.println(utensilio);
                         }
                     }
+
                     x = 0;
                     
                     break;
@@ -149,15 +154,38 @@ public class Sistema {
                 // Receita
                 System.out.println(" 1 - Adicionar Receita ");
                 System.out.println(" 2 - Listar Receita ");
+                x = sc.nextInt();
+                if(x == 1){
+                    System.out.println("Digite o ID");
+                        int ID = sc.nextInt();
+                        System.out.println("Digite o titulo");
+                        String titulo = sc.nextLine();
+                        System.out.println("Digite a Descrição");
+                        String descricao = sc.nextLine();
+                        System.out.println("Digite o caminho da Imagem");
+                        String imagem = sc.nextLine();
+
+
+                    Receita receita = new Receita(ID, titulo, descricao, imagem, custoArray, categoriaArray, preparoArray, utensilioArray);
+                    receitaArray.add(receita);
+
+                    System.out.println("Receita Adicionada");
+
+                }else if(x == 2){
+                    for (Receita r : receitaArray) System.out.println(r);
+                }
+                
+                x = 0;
                     
                     break;
                 case 6:
 
                     chave = 'C';
-
+                    System.out.println("Encerrando o programa...");
                     break;
             
                 default:
+                System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
 

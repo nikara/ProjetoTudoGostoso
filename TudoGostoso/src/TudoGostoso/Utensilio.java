@@ -9,4 +9,9 @@ public class Utensilio {
         this.idUtensilio = idUtensilio;
         this.utensilio = utensilio;
     }
+
+    @Override
+    public String toString(){
+        return "Utensilio { id = "+ idUtensilio+", Utensilio = "+utensilio+"}";
+    }
 }

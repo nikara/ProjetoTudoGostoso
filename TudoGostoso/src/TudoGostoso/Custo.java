@@ -9,5 +9,10 @@ public class Custo {
         this.custo = custo;
     }
 
+    @Override
+    public String toString(){
+        return "Custo { id = "+ idCusto +", Custo "+ custo +" }";
+    }
+
 
 }

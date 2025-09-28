@@ -1,5 +1,6 @@
 package TudoGostoso;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -11,22 +12,26 @@ public class Receita {
     String imagem;
 
     // Objetos
-    Custo custo;
-    Categoria categoria;
-    Preparo preparo;
-    Utensilio utensilio;
+    List<Custo> custos;
+    List<Categoria> categorias;
+    List<Preparo> preparos;
+    List<Utensilio> utensilios;
     
 
-    public Receita(int IdReceita, String titulo, String descricao, String imagem,Custo custo, Categoria categoria, Preparo preparo, Utensilio utensilio){
+    public Receita(int IdReceita, String titulo, String descricao, String imagem, List<Custo> custo, List<Categoria> categoria, List<Preparo> preparos, List<Utensilio> utensilios){
         this.IdReceita = IdReceita;
         this.titulo = titulo;
         this.descricao = descricao;
         this.imagem = imagem;
-        this.custo = custo;
-        this.categoria = categoria;
-        this.preparo = preparo;
-        this.utensilio = utensilio;
-        
+        this.custos = custo;
+        this.categorias = categoria;
+        this.preparos = preparo;
+        this.utensilios = utensilio;
+    }
+
+    @Override
+    public String toString(){
+        return "Receita { Id = "+IdReceita+", Titulo = "+titulo+", Descricão = "+descricao+", Imagem = "+imagem+", Custo = "+custos+", Categoria = "+categorias+", Preparo = "+preparos+", Utensilio = "+utensilios+"}";
     }
 
 }

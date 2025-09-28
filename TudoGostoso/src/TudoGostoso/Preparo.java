@@ -14,5 +14,10 @@ public class Preparo {
         this.tempoDePreparo = tempoDePreparo;
     }
 
+    @Override
+    public String toString(){
+        return "Preparo{ id = "+idPreparo+", Modo de Preparo = "+modoPreparo+", Url do video = "+urlVideo+", Tempo de Preparo = "+tempoDePreparo+"}";
+    }
+
     
 }
