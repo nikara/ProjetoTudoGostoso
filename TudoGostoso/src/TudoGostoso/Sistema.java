@@ -133,10 +133,8 @@ public class Sistema {
 
 
                         System.out.println("Digite o Tempo de preparo");
-                        int tempoDePreparo = sc.nextInt();
+                        String tempoDePreparo = sc.nextLine();
 
-                        // Para consumir o enter 
-                        sc.nextLine();
 
                         Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
                         preparoArray.add(preparo);

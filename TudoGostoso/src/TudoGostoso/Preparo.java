@@ -5,9 +5,9 @@ public class Preparo {
     int idPreparo;
     String modoPreparo;
     String urlVideo;
-    int tempoDePreparo;
+    String tempoDePreparo;
 
-     public Preparo(int idPreparo, String modoPreparo,String urlVideo, int tempoDePreparo){
+     public Preparo(int idPreparo, String modoPreparo,String urlVideo, String tempoDePreparo){
         this.idPreparo = idPreparo;
         this.modoPreparo = modoPreparo;
         this.urlVideo = urlVideo;
