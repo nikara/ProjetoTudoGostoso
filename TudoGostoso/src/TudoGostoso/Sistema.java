@@ -184,6 +184,10 @@ public class Sistema {
                 if(x == 1){
                     System.out.println("Digite o ID");
                         int ID = sc.nextInt();
+
+                        // Para consumir o enter 
+                        sc.nextLine();
+
                         System.out.println("Digite o titulo");
                         String titulo = sc.nextLine();
                         System.out.println("Digite a Descrição");
