@@ -24,6 +24,8 @@ public class Sistema {
 
         Scanner sc = new Scanner(System.in);
 
+
+
         while (chave == 'X' ) {
 
         
@@ -56,6 +58,7 @@ public class Sistema {
                         
                         System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
                         int CondicaoStatus = sc.nextInt();
+                        
                         Boolean StatusBool;
                         
                         if (CondicaoStatus == 1){
@@ -188,13 +191,7 @@ public class Sistema {
                 System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
-
-            sc.close();
-
-            
-            
         }
-        
-        
+        sc.close();
     }
 }
