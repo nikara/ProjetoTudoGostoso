@@ -127,14 +127,10 @@ public class Sistema {
                         System.out.println("Digite o Modo de Preparo");
                         String modoDePreString = sc.nextLine();
 
-                        // Para consumir o enter 
-                        sc.nextLine();
 
                         System.out.println("Digite o Url do Video");
                         String urlString = sc.nextLine();
 
-                        // Para consumir o enter 
-                        sc.nextLine();
 
                         System.out.println("Digite o Tempo de preparo");
                         int tempoDePreparo = sc.nextInt();
@@ -162,6 +158,10 @@ public class Sistema {
                     if(x == 1){
                         System.out.println("Digite o ID");
                         int ID = sc.nextInt();
+
+                        // Para consumir o enter 
+                        sc.nextLine();
+
                         System.out.println("Digite o Utensilio");
                         String utensilioString = sc.nextLine();
 
