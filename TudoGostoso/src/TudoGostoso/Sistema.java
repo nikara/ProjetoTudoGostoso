@@ -88,9 +88,13 @@ public class Sistema {
                     x = sc.nextInt();
                     if(x == 1){
                         System.out.println("Digite o ID");
+                        
                         int ID = sc.nextInt();
+
                         System.out.println("Digite o Custo");
-                        String custoString = sc.nextLine();
+
+                        String custoString = sc.next();
+
                         Custo custo = new Custo(ID, custoString);
                         custoArray.add(custo);
 
