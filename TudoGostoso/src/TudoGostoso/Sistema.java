@@ -91,9 +91,12 @@ public class Sistema {
                         
                         int ID = sc.nextInt();
 
+                        // Para consumir o enter 
+                        sc.nextLine();
+
                         System.out.println("Digite o Custo");
 
-                        String custoString = sc.next();
+                        String custoString = sc.nextLine();
 
                         Custo custo = new Custo(ID, custoString);
                         custoArray.add(custo);
@@ -114,14 +117,30 @@ public class Sistema {
                 System.out.println(" 2 - Listar Preparo ");
                     x = sc.nextInt();
                     if(x == 1){
+
                         System.out.println("Digite o ID");
                         int ID = sc.nextInt();
+
+                        // Para consumir o enter 
+                        sc.nextLine();
+
                         System.out.println("Digite o Modo de Preparo");
                         String modoDePreString = sc.nextLine();
+
+                        // Para consumir o enter 
+                        sc.nextLine();
+
                         System.out.println("Digite o Url do Video");
                         String urlString = sc.nextLine();
+
+                        // Para consumir o enter 
+                        sc.nextLine();
+
                         System.out.println("Digite o Tempo de preparo");
                         int tempoDePreparo = sc.nextInt();
+
+                        // Para consumir o enter 
+                        sc.nextLine();
 
                         Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
                         preparoArray.add(preparo);
