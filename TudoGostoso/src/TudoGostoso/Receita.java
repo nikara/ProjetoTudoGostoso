@@ -1,5 +1,4 @@
 package TudoGostoso;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,8 +24,8 @@ public class Receita {
         this.imagem = imagem;
         this.custos = custo;
         this.categorias = categoria;
-        this.preparos = preparo;
-        this.utensilios = utensilio;
+        this.preparos = preparos;
+        this.utensilios = utensilios;
     }
 
     @Override

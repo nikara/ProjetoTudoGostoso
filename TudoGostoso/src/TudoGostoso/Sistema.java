@@ -26,7 +26,7 @@ public class Sistema {
 
         while (chave == 'X' ) {
 
-            int opcao;
+        
 
             System.out.println("Escolha uma opção ");
             System.out.println(" 1 - Caterigoria ");
@@ -188,6 +188,8 @@ public class Sistema {
                 System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
+
+            sc.close();
 
             
             
