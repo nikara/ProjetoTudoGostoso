@@ -47,7 +47,7 @@ public class Sistema {
                 //Categoria
                 System.out.println(" 1 - Adicionar Categoria ");
                 System.out.println(" 2 - Listar Categoria ");
-                System.out.println("3 - Escolher elemento");
+                System.out.println(" 3 - Escolher elemento");
                     int x = sc.nextInt();
                     if(x == 1){
                         
