@@ -1,4 +1,5 @@
 package TudoGostoso;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,15 +18,19 @@ public class Receita {
     List<Utensilio> utensilios;
     
 
-    public Receita(int IdReceita, String titulo, String descricao, String imagem, List<Custo> custo, List<Categoria> categoria, List<Preparo> preparos, List<Utensilio> utensilios){
+    public Receita(int IdReceita, String titulo, String descricao, String imagem, List<Categoria> categoria, List<Preparo> preparos, List<Utensilio> utensilios){
         this.IdReceita = IdReceita;
         this.titulo = titulo;
         this.descricao = descricao;
         this.imagem = imagem;
-        this.custos = custo;
+        this.custos = new ArrayList<>();
         this.categorias = categoria;
         this.preparos = preparos;
         this.utensilios = utensilios;
+    }
+
+    public void adicionarCusto(Custo custo) {
+        this.custos.add(custo);
     }
 
     @Override

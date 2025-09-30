@@ -9,6 +9,10 @@ public class Custo {
         this.custo = custo;
     }
 
+    public int getId(){
+        return idCusto;
+    }
+
     @Override
     public String toString(){
         return "Custo { id = "+ idCusto +", Custo "+ custo +" }";

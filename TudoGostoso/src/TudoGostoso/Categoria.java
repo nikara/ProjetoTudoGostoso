@@ -12,6 +12,10 @@ public class Categoria {
         this.Status = Status;
     }
 
+    public int getId(){
+        return idCategoria;
+    }
+
     @Override
     public String toString(){
         return "Categoria { id = '"+ idCategoria +"', Categoria = " + Categoria + ", Status= " + Status + " }";

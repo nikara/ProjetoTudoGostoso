@@ -47,6 +47,7 @@ public class Sistema {
                 //Categoria
                 System.out.println(" 1 - Adicionar Categoria ");
                 System.out.println(" 2 - Listar Categoria ");
+                System.out.println("3 - Escolher elemento");
                     int x = sc.nextInt();
                     if(x == 1){
                         
@@ -74,7 +75,11 @@ public class Sistema {
                         for( Categoria c : categoriaArray){
                             System.out.println(c);
                         }
-
+                    }else if( x == 3){
+                        System.out.println("Escolha um do elementos");
+                        for (int t = 0; t < categoriaArray.size(); t++){
+                            System.out.println("O indice do elemento e "+t+" o elemento e"+ categoriaArray.get(t));
+                        }
                     }
 
                     x = 0;
@@ -192,9 +197,11 @@ public class Sistema {
                         String descricao = sc.nextLine();
                         System.out.println("Digite o caminho da Imagem");
                         String imagem = sc.nextLine();
+                        System.out.println("Escolha os o indice do elemento");
+                        int index = sc.nextInt();
 
-
-                    Receita receita = new Receita(ID, titulo, descricao, imagem, custoArray, categoriaArray, preparoArray, utensilioArray);
+                    Receita receita = new Receita(ID, titulo, descricao, imagem, categoriaArray, preparoArray, utensilioArray);
+                    receita.adicionarCusto(custoArray.get(index));
                     receitaArray.add(receita);
 
                     System.out.println("Receita Adicionada");

@@ -10,6 +10,10 @@ public class Utensilio {
         this.utensilio = utensilio;
     }
 
+    public int getId(){
+        return idUtensilio;
+    }
+
     @Override
     public String toString(){
         return "Utensilio { id = "+ idUtensilio+", Utensilio = "+utensilio+"}";
