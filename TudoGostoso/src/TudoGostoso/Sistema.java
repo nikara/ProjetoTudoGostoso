@@ -201,10 +201,10 @@ public class Sistema {
                         int index = sc.nextInt();
 
                     Receita receita = new Receita(ID, titulo, descricao, imagem);
-                    receita.adicionarCusto(custoArray.get(index));
-                    receita.adicionarCategoria(categoriaArray.get(index));
-                    receita.adicionarPreparos(preparoArray.get(index));
-                    receita.adicionarUtensilios(utensilioArray.get(index));
+                    receita.adicionarCusto(custoArray.get(index-1));
+                    receita.adicionarCategoria(categoriaArray.get(index-1));
+                    receita.adicionarPreparos(preparoArray.get(index-1));
+                    receita.adicionarUtensilios(utensilioArray.get(index-1));
                     receitaArray.add(receita);
 
                     System.out.println("Receita Adicionada");
