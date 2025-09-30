@@ -24,8 +24,6 @@ public class Sistema {
 
         Scanner sc = new Scanner(System.in);
 
-
-
         while (chave == 'X' ) {
 
         
@@ -40,6 +38,8 @@ public class Sistema {
             
             int i = sc.nextInt();
 
+            int ID =+ 1;
+
 
             switch (i) {
                 case 1:
@@ -50,9 +50,6 @@ public class Sistema {
                 System.out.println(" 3 - Escolher elemento");
                     int x = sc.nextInt();
                     if(x == 1){
-                        
-                        System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
                         
                         System.out.println("Digite a Categoria");
                         String categoriaString = sc.next();
@@ -92,10 +89,7 @@ public class Sistema {
                 System.out.println(" 2 - Listar Custo ");
                     x = sc.nextInt();
                     if(x == 1){
-                        System.out.println("Digite o ID");
                         
-                        int ID = sc.nextInt();
-
                         // Para consumir o enter 
                         sc.nextLine();
 
@@ -122,12 +116,6 @@ public class Sistema {
                 System.out.println(" 2 - Listar Preparo ");
                     x = sc.nextInt();
                     if(x == 1){
-
-                        System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
-
-                        // Para consumir o enter 
-                        sc.nextLine();
 
                         System.out.println("Digite o Modo de Preparo");
                         String modoDePreString = sc.nextLine();
@@ -159,12 +147,7 @@ public class Sistema {
                 System.out.println(" 2 - Listar Utensilio ");
                     x = sc.nextInt();
                     if(x == 1){
-                        System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
-
-                        // Para consumir o enter 
-                        sc.nextLine();
-
+                    
                         System.out.println("Digite o Utensilio");
                         String utensilioString = sc.nextLine();
 
@@ -185,23 +168,20 @@ public class Sistema {
                 System.out.println(" 2 - Listar Receita ");
                 x = sc.nextInt();
                 if(x == 1){
-                    System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
-
-                        // Para consumir o enter 
-                        sc.nextLine();
-
+                    
                         System.out.println("Digite o titulo");
                         String titulo = sc.nextLine();
                         System.out.println("Digite a Descrição");
                         String descricao = sc.nextLine();
                         System.out.println("Digite o caminho da Imagem");
                         String imagem = sc.nextLine();
-                        System.out.println("Escolha os o indice do elemento");
-                        int index = sc.nextInt();
 
-                    Receita receita = new Receita(ID, titulo, descricao, imagem, categoriaArray, preparoArray, utensilioArray);
-                    receita.adicionarCusto(custoArray.get(index));
+                    Receita receita = new Receita(ID, titulo, descricao, imagem);
+
+                    receita.adicionarCusto(custoArray.get(ID));
+                    receita.adicionarCategoria(categoriaArray.get(ID));
+                    receita.adicionarPreparos(preparoArray.get(ID));
+                    receita.adicionarUtensilios(utensilioArray.get(ID));
                     receitaArray.add(receita);
 
                     System.out.println("Receita Adicionada");
