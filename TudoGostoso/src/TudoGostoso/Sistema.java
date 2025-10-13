@@ -13,22 +13,35 @@ public class Sistema {
         ArrayList<Custo> custoArray = new ArrayList<Custo>();
         ArrayList<Preparo> preparoArray = new ArrayList<Preparo>();
         ArrayList<Utensilio> utensilioArray = new ArrayList<Utensilio>();
-        ArrayList<Receita> receitaArray = new ArrayList<Receita>(); 
+        ArrayList<Receita> receitaArray = new ArrayList<Receita>();
+        ArrayList<Usuario> usuarioArray = new ArrayList<Usuario>() 
 
         System.out.println("Projeto Quase tudo gostoso");
 
-        System.out.println("Menu");
+        
 
         // Finaliza o programa
         char chave = 'X';
 
         Scanner sc = new Scanner(System.in);
 
+        // Quando o programa inicia ele pede para informar um usuario
 
+        System.out.println("Informe o Usuario");
+        System.out.println("Digite o Nome:");
+        String usuarioNome = sc.nextLine();
+        System.out.println("Digite o Email:");
+        String usuarioEmail = sc.nextLine();
+        System.out.println("Digite a Senha:");
+        String usuarioSenha = sc.nextLine();
+
+        Usuario usuario = new Usuario(usuarioNome,usuarioEmail,usuarioSenha);
+        usuarioArray.add(usuario);
+        
 
         while (chave == 'X' ) {
 
-        
+            System.out.println("Menu");
 
             System.out.println("Escolha uma opção ");
             System.out.println(" 1 - Caterigoria ");

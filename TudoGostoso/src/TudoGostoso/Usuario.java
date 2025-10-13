@@ -2,6 +2,7 @@ package TudoGostoso;
 
 public class Usuario {
 
+//#region Atributos 
     private int IdUsuario;
     private String Nome;
     private String Email;
@@ -12,7 +13,9 @@ public class Usuario {
     private String Salt;
     private String Inscrito;
     private String Uuid;
+// endregion 
 
+//#region Construtor
     public Usuario(int IdUsuario, String nome,String email, String data_nascimento, int cep, String genero,String senha, String salt, String inscrito,String uuid){
         this.IdUsuario = IdUsuario;
         this.Nome = nome;
@@ -27,6 +30,9 @@ public class Usuario {
 
     }
 
+// endregion
+
+//#region Set e Gets
     public void setIdUsuario(int IdUsuario){
         this.IdUsuario = IdUsuario;
     }
@@ -107,6 +113,38 @@ public class Usuario {
         return Uuid;
     }
 
+// endregion
+
+//#region Metedos de Usuario
+
+// Construtor que inicia um usuario pre-existente
+
+public Usuario(String nome, String email, String senha){
+    this.Nome = nome;
+    this.Email = email;
+    this.Senha = senha;
+}
+
+// Autenticar Usuario
+
+public class void autenticarUsuario (String nomeString, String emailString,String senhaString ){
+
+System.err.println("----------------Autenticando Usuario----------------");
+System.out.println("Nome  do Usuario:" + nomeString);
+System.out.println("Email do Usuario:" + emailString);
+System.out.println("Senha do Usuario:" + senhaString);
+
+if(nomeString == getNome() && emailStringString == getEmail() && senhaString == getSenha() ){
+    System.out.println("Usuario reconhecido");
+}
+
+};
+
+
+
+//#endregion
+
+//#region Metodos alterados
     @Override
     public String toString(){
         return "Usuário { IdUsuário: " + IdUsuario + 
@@ -120,6 +158,5 @@ public class Usuario {
                         ", Inscrito" + Inscrito +
                         ", UUID: " + Uuid ;
     }
-
-    
+//#endregion
 }
