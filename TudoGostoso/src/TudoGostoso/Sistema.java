@@ -1,245 +1,297 @@
 package TudoGostoso;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Sistema {
     public static void main(String[] args) {
 
-        //Instancia dos objetos em ArrayList
+        // #region Instancia dos objetos em ArrayList
 
         ArrayList<Categoria> categoriaArray = new ArrayList<Categoria>();
         ArrayList<Custo> custoArray = new ArrayList<Custo>();
         ArrayList<Preparo> preparoArray = new ArrayList<Preparo>();
         ArrayList<Utensilio> utensilioArray = new ArrayList<Utensilio>();
         ArrayList<Receita> receitaArray = new ArrayList<Receita>();
-        ArrayList<Usuario> usuarioArray = new ArrayList<Usuario>() 
+        ArrayList<Usuario> usuarioArray = new ArrayList<Usuario>();
+
+        // #endregion
+
+        // Inicio do Programa
 
         System.out.println("Projeto Quase tudo gostoso");
 
-        
+        // Variaveis globais
+        // variavel de controle do while loop
+        Boolean chave = true;
 
-        // Finaliza o programa
-        char chave = 'X';
-
+        // Instancia o Scanner
         Scanner sc = new Scanner(System.in);
 
-        // Quando o programa inicia ele pede para informar um usuario
+        // #region Usuario Master Pre-Existente
+        int idUsuarioMaster = 1;
+        String nomeUsuarioMaster = "Adam";
+        String emailUsuarioMaster = "Adam@gmai.com";
+        String data_nascimentoMaster = "00/00/00 00:00:01";
+        int cepMaster = 0000000;
+        String generoMaster = "Homem";
+        String senhaMaster = "777";
+        String saltaMaster = "Primeiro";
+        String inscritoMaster = "Não";
+        String uuidMaster = "1";
 
-        System.out.println("Informe o Usuario");
-        System.out.println("Digite o Nome:");
-        String usuarioNome = sc.nextLine();
-        System.out.println("Digite o Email:");
-        String usuarioEmail = sc.nextLine();
-        System.out.println("Digite a Senha:");
-        String usuarioSenha = sc.nextLine();
+        Usuario usuarioMaster = new Usuario(idUsuarioMaster,
+                nomeUsuarioMaster,
+                emailUsuarioMaster,
+                data_nascimentoMaster,
+                cepMaster,
+                generoMaster,
+                senhaMaster,
+                saltaMaster,
+                inscritoMaster,
+                uuidMaster);
 
-        Usuario usuario = new Usuario(usuarioNome,usuarioEmail,usuarioSenha);
-        usuarioArray.add(usuario);
-        
+        // #endregion
 
-        while (chave == 'X' ) {
+        // #region Menu
+        // Loop que mantém o programa ativo
 
-            System.out.println("Menu");
+        while (chave) {
 
-            System.out.println("Escolha uma opção ");
-            System.out.println(" 1 - Caterigoria ");
-            System.out.println(" 2 - Custo ");
-            System.out.println(" 3 - Preparo ");
-            System.out.println(" 4 - Utensilio ");
-            System.out.println(" 5 - Receita ");
-            System.out.println(" 6 - Fechar o Programa ");
+            System.out.println("--------------------Menu--------------------");
+
+            System.out.println("Escolha uma opção");
+            System.out.println(" 1 - Construir Receita");
+            System.out.println(" 2 - Administrador");
+            System.out.println(" 3 - Consumidor");
+
+
+            int opcao = sc.nextInt();
             
-            int i = sc.nextInt();
+            
+            //#region
+            // Administrador e Consumidor podem construir e apagar receitas mas apenas administrador pode apagar receitas de outros consumidores
+            // Abre o Menu para construir receita
+            if (opcao == 1) {
+
+                System.out.println("Construa sua receita");
+                System.out.println(" 1 - Caterigoria");
+                System.out.println(" 2 - Custo");
+                System.out.println(" 3 - Preparo");
+                System.out.println(" 4 - Utensilio");
+                System.out.println(" 5 - Receita");
+                System.out.println(" 6 - Fechar o Programa");
+
+                System.out.println(" Escolhar uma Opção");
+                opcao = null;
+                opcao = sc.nextInt();
 
 
-            switch (i) {
-                case 1:
-                
-                //Categoria
-                System.out.println(" 1 - Adicionar Categoria ");
-                System.out.println(" 2 - Listar Categoria ");
-                System.out.println(" 3 - Escolher elemento");
-                    int x = sc.nextInt();
-                    if(x == 1){
-                        
-                        System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
-                        
-                        System.out.println("Digite a Categoria");
-                        String categoriaString = sc.next();
-                        
-                        System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
-                        int CondicaoStatus = sc.nextInt();
-                        
-                        Boolean StatusBool;
-                        
-                        if (CondicaoStatus == 1){
-                            StatusBool = true;
-                        }else{
-                            StatusBool = false;
+
+                switch (opcao) {
+                    case 1:
+
+                        // Categoria
+                        System.out.println(" 1 - Adicionar Categoria ");
+                        System.out.println(" 2 - Listar Categoria ");
+                        System.out.println(" 3 - Escolher elemento");
+                        int x = sc.nextInt();
+                        if (x == 1) {
+
+                            System.out.println("Digite o ID");
+                            int ID = sc.nextInt();
+
+                            System.out.println("Digite a Categoria");
+                            String categoriaString = sc.next();
+
+                            System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
+                            int CondicaoStatus = sc.nextInt();
+
+                            Boolean StatusBool;
+
+                            if (CondicaoStatus == 1) {
+                                StatusBool = true;
+                            } else {
+                                StatusBool = false;
+                            }
+
+                            Categoria categoria = new Categoria(ID, categoriaString, StatusBool);
+                            categoriaArray.add(categoria);
+
+                        } else if (x == 2) {
+                            for (Categoria c : categoriaArray) {
+                                System.out.println(c);
+                            }
+                        } else if (x == 3) {
+                            System.out.println("Escolha um do elementos");
+                            for (int t = 0; t < categoriaArray.size(); t++) {
+                                System.out.println(
+                                        "O indice do elemento e " + t + " o elemento e" + categoriaArray.get(t));
+                            }
                         }
 
-                        Categoria categoria = new Categoria(ID, categoriaString, StatusBool);
-                        categoriaArray.add(categoria);
+                        x = 0;
 
-                    }else if (x == 2){
-                        for( Categoria c : categoriaArray){
-                            System.out.println(c);
+                        break;
+                    case 2:
+
+                        // Custo
+                        System.out.println(" 1 - Adicionar Custo ");
+                        System.out.println(" 2 - Listar Custo ");
+                        x = sc.nextInt();
+                        if (x == 1) {
+                            System.out.println("Digite o ID");
+
+                            int ID = sc.nextInt();
+
+                            // Para consumir o enter
+                            sc.nextLine();
+
+                            System.out.println("Digite o Custo");
+
+                            String custoString = sc.nextLine();
+
+                            Custo custo = new Custo(ID, custoString);
+                            custoArray.add(custo);
+
+                        } else if (x == 2) {
+                            for (Custo custo : custoArray) {
+                                System.out.println(custo);
+                            }
+
                         }
-                    }else if( x == 3){
-                        System.out.println("Escolha um do elementos");
-                        for (int t = 0; t < categoriaArray.size(); t++){
-                            System.out.println("O indice do elemento e "+t+" o elemento e"+ categoriaArray.get(t));
-                        }
-                    }
+                        x = 0;
 
-                    x = 0;
+                        break;
+                    case 3:
 
-                    break;
-                case 2:
+                        // Preparo
+                        System.out.println(" 1 - Adicionar Preparo ");
+                        System.out.println(" 2 - Listar Preparo ");
+                        x = sc.nextInt();
+                        if (x == 1) {
 
-                // Custo
-                System.out.println(" 1 - Adicionar Custo ");
-                System.out.println(" 2 - Listar Custo ");
-                    x = sc.nextInt();
-                    if(x == 1){
-                        System.out.println("Digite o ID");
-                        
-                        int ID = sc.nextInt();
+                            System.out.println("Digite o ID");
+                            int ID = sc.nextInt();
 
-                        // Para consumir o enter 
-                        sc.nextLine();
+                            // Para consumir o enter
+                            sc.nextLine();
 
-                        System.out.println("Digite o Custo");
+                            System.out.println("Digite o Modo de Preparo");
+                            String modoDePreString = sc.nextLine();
 
-                        String custoString = sc.nextLine();
+                            System.out.println("Digite o Url do Video");
+                            String urlString = sc.nextLine();
 
-                        Custo custo = new Custo(ID, custoString);
-                        custoArray.add(custo);
+                            System.out.println("Digite o Tempo de preparo");
+                            String tempoDePreparo = sc.nextLine();
 
-                    }else if (x == 2){
-                        for (Custo custo : custoArray) {
-                            System.out.println(custo);
+                            Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
+                            preparoArray.add(preparo);
+                        } else if (x == 2) {
+                            for (Preparo preparo : preparoArray) {
+                                System.out.println(preparo);
+                            }
                         }
 
-                    }
-                    x = 0;
+                        x = 0;
 
-                    break;
-                case 3:
+                        break;
+                    case 4:
 
-                //Preparo
-                System.out.println(" 1 - Adicionar Preparo ");
-                System.out.println(" 2 - Listar Preparo ");
-                    x = sc.nextInt();
-                    if(x == 1){
+                        // Utensilio
+                        System.out.println(" 1 - Adicionar Utensilio ");
+                        System.out.println(" 2 - Listar Utensilio ");
+                        x = sc.nextInt();
+                        if (x == 1) {
+                            System.out.println("Digite o ID");
+                            int ID = sc.nextInt();
 
-                        System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
+                            // Para consumir o enter
+                            sc.nextLine();
 
-                        // Para consumir o enter 
-                        sc.nextLine();
+                            System.out.println("Digite o Utensilio");
+                            String utensilioString = sc.nextLine();
 
-                        System.out.println("Digite o Modo de Preparo");
-                        String modoDePreString = sc.nextLine();
-
-
-                        System.out.println("Digite o Url do Video");
-                        String urlString = sc.nextLine();
-
-
-                        System.out.println("Digite o Tempo de preparo");
-                        String tempoDePreparo = sc.nextLine();
-
-
-                        Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
-                        preparoArray.add(preparo);
-                    }else if (x == 2){
-                        for (Preparo preparo : preparoArray) {
-                            System.out.println(preparo);
+                            Utensilio utensilio = new Utensilio(ID, utensilioString);
+                            utensilioArray.add(utensilio);
+                        } else if (x == 2) {
+                            for (Utensilio utensilio : utensilioArray) {
+                                System.out.println(utensilio);
+                            }
                         }
-                    }
 
-                    x = 0;
+                        x = 0;
 
-                    break;
-                case 4:
+                        break;
+                    case 5:
+                        // Receita
+                        System.out.println(" 1 - Adicionar Receita ");
+                        System.out.println(" 2 - Listar Receita ");
+                        x = sc.nextInt();
+                        if (x == 1) {
+                            System.out.println("Digite o ID");
+                            int ID = sc.nextInt();
 
-                // Utensilio
-                System.out.println(" 1 - Adicionar Utensilio ");
-                System.out.println(" 2 - Listar Utensilio ");
-                    x = sc.nextInt();
-                    if(x == 1){
-                        System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
+                            // Para consumir o enter
+                            sc.nextLine();
 
-                        // Para consumir o enter 
-                        sc.nextLine();
+                            System.out.println("Digite o titulo");
+                            String titulo = sc.nextLine();
+                            System.out.println("Digite a Descrição");
+                            String descricao = sc.nextLine();
+                            System.out.println("Digite o caminho da Imagem");
+                            String imagem = sc.nextLine();
+                            System.out.println("Escolha o indice dos elementos");
+                            int index = sc.nextInt();
 
-                        System.out.println("Digite o Utensilio");
-                        String utensilioString = sc.nextLine();
+                            Receita receita = new Receita(ID, titulo, descricao, imagem);
+                            receita.adicionarCusto(custoArray.get(index - 1));
+                            receita.adicionarCategoria(categoriaArray.get(index - 1));
+                            receita.adicionarPreparos(preparoArray.get(index - 1));
+                            receita.adicionarUtensilios(utensilioArray.get(index - 1));
+                            receitaArray.add(receita);
 
-                        Utensilio utensilio = new Utensilio(ID, utensilioString);
-                        utensilioArray.add(utensilio);
-                    }else if (x == 2){
-                        for (Utensilio utensilio : utensilioArray){
-                            System.out.println(utensilio);
+                            System.out.println("Receita Adicionada");
+
+                        } else if (x == 2) {
+                            for (Receita r : receitaArray)
+                                System.out.println(r);
                         }
-                    }
 
-                    x = 0;
-                    
-                    break;
-                case 5:
-                // Receita
-                System.out.println(" 1 - Adicionar Receita ");
-                System.out.println(" 2 - Listar Receita ");
-                x = sc.nextInt();
-                if(x == 1){
-                    System.out.println("Digite o ID");
-                        int ID = sc.nextInt();
+                        x = 0;
 
-                        // Para consumir o enter 
-                        sc.nextLine();
+                        break;
+                    case 6:
 
-                        System.out.println("Digite o titulo");
-                        String titulo = sc.nextLine();
-                        System.out.println("Digite a Descrição");
-                        String descricao = sc.nextLine();
-                        System.out.println("Digite o caminho da Imagem");
-                        String imagem = sc.nextLine();
-                        System.out.println("Escolha o indice dos elementos");
-                        int index = sc.nextInt();
+                        chave = false;
+                        System.out.println("Encerrando o programa...");
+                        break;
 
-                    Receita receita = new Receita(ID, titulo, descricao, imagem);
-                    receita.adicionarCusto(custoArray.get(index-1));
-                    receita.adicionarCategoria(categoriaArray.get(index-1));
-                    receita.adicionarPreparos(preparoArray.get(index-1));
-                    receita.adicionarUtensilios(utensilioArray.get(index-1));
-                    receitaArray.add(receita);
-
-                    System.out.println("Receita Adicionada");
-
-                }else if(x == 2){
-                    for (Receita r : receitaArray) System.out.println(r);
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                        break;
                 }
-                
-                x = 0;
-                    
-                    break;
-                case 6:
+            };
+            //#endregion
 
-                    chave = 'C';
-                    System.out.println("Encerrando o programa...");
-                    break;
+            //#region 
+            // Apenas o UsuarioMaster pode manter Administradores 
+            if(opcao == 2){
+
+            };
+            //#endregion
             
-                default:
-                System.out.println("Opção inválida. Tente novamente.");
-                    break;
-            }
+            //#region
+            // Apenas o UsuarioMaster e os Administradores podem manter Consumidores 
+            if (opcao) {
+                
+            };
+            //#endregion
+
+
         }
+        // #endregion
         sc.close();
     }
 }
