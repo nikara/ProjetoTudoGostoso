@@ -3,8 +3,8 @@ package TudoGostoso;
 public class Usuario {
 
 //#region Atributos 
-    private int IdUsuario;
-    private String Nome;
+    private int idUsuario;
+    private String nome;
     private String Email;
     private String Data_nascimento;
     private int Cep;
@@ -16,9 +16,9 @@ public class Usuario {
 // endregion 
 
 //#region Construtor
-    public Usuario(int IdUsuario, String nome,String email, String data_nascimento, int cep, String genero,String senha, String salt, String inscrito,String uuid){
-        this.IdUsuario = IdUsuario;
-        this.Nome = nome;
+    public Usuario(int idUsuario, String nome,String email, String data_nascimento, int cep, String genero,String senha, String salt, String inscrito,String uuid){
+        this.idUsuario = idUsuario;
+        this.nome = nome;
         this.Email = email;
         this.Data_nascimento = data_nascimento;
         this.Cep = cep;
@@ -33,20 +33,20 @@ public class Usuario {
 // endregion
 
 //#region Set e Gets
-    public void setIdUsuario(int IdUsuario){
-        this.IdUsuario = IdUsuario;
+    public void setIdUsuario(int idUsuario){
+        this.idUsuario = idUsuario;
     }
 
     public int getIdUsuario(){
-        return IdUsuario;
+        return idUsuario;
     }
 
     public void setNome(String nome){
-        this.Nome = nome;
+        this.nome = nome;
     }
 
     public String getNome(){
-        return Nome;
+        return nome;
     }
 
     public void setEmail(String email){
@@ -120,7 +120,7 @@ public class Usuario {
 // Construtor que inicia um usuario pre-existente
 
 public Usuario(String nome, String email, String senha){
-    this.Nome = nome;
+    this.nome = nome;
     this.Email = email;
     this.Senha = senha;
 }
@@ -147,8 +147,8 @@ if(nomeString == getNome() && emailString == getEmail() && senhaString == getSen
 //#region Metodos alterados
     @Override
     public String toString(){
-        return "Usuário { IdUsuário: " + IdUsuario + 
-                        ", Nome: " + Nome +
+        return "Usuário { IdUsuário: " + idUsuario + 
+                        ", Nome: " + nome +
                         ", Email: " + Email + 
                         ", Data de nascimento: " + Data_nascimento +
                         ", CEP: " + Cep +
