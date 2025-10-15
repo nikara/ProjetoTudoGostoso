@@ -127,14 +127,14 @@ public Usuario(String nome, String email, String senha){
 
 // Autenticar Usuario
 
-public class void autenticarUsuario (String nomeString, String emailString,String senhaString ){
+public void autenticarUsuario (String nomeString, String emailString,String senhaString ){
 
 System.err.println("----------------Autenticando Usuario----------------");
 System.out.println("Nome  do Usuario:" + nomeString);
 System.out.println("Email do Usuario:" + emailString);
 System.out.println("Senha do Usuario:" + senhaString);
 
-if(nomeString == getNome() && emailStringString == getEmail() && senhaString == getSenha() ){
+if(nomeString == getNome() && emailString == getEmail() && senhaString == getSenha() ){
     System.out.println("Usuario reconhecido");
 }
 
