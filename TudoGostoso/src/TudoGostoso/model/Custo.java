@@ -8,6 +8,11 @@ public class Custo {
 //#endregion
 
 //#region Construtores
+
+    public Custo(){
+
+    };
+    
     public Custo(int idCusto, String custo){
         this.idCusto = idCusto;
         this.custo = custo;

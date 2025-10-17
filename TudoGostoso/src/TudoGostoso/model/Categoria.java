@@ -8,9 +8,7 @@ public class Categoria {
 //#endregion
 
 //#region Construtor
-    public Categoria(){
-
-    };
+    public Categoria(){};
 
     public Categoria(int idCategoria, String Categoria,Boolean Status){
         this.idCategoria = idCategoria;

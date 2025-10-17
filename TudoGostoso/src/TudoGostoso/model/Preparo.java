@@ -10,6 +10,9 @@ public class Preparo {
 //#endregion
 
 //#region Cosntrutores
+
+    public Preparo(){};
+
      public Preparo(int idPreparo, String modoPreparo,String urlVideo, String tempoDePreparo){
         this.idPreparo = idPreparo;
         this.modoPreparo = modoPreparo;

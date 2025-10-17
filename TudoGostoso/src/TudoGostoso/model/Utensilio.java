@@ -7,6 +7,8 @@ public class Utensilio {
 //#endregion
 
 //#region Construtores
+
+    public Utensilio(){};
     public Utensilio(int idUtensilio, String utensilio){
         this.idUtensilio = idUtensilio;
         this.utensilio = utensilio;

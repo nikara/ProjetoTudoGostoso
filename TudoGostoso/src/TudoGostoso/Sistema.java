@@ -77,6 +77,7 @@ public class Sistema {
             // Abre o Menu para construir receita
             if (opcao == 1) {
 
+                //#region
                 System.out.println("Construa sua receita");
                 System.out.println(" 1 - Caterigoria");
                 System.out.println(" 2 - Custo");
@@ -88,10 +89,13 @@ public class Sistema {
                 System.out.println(" Escolhar uma Opção");
                 opcao = 0;
                 opcao = sc.nextInt();
+                //#endregion
 
+            //#region
                 switch (opcao) {
+                    
                     case 1:
-
+                    //#region
                         // Categoria
                         System.out.println(" 1 - Adicionar Categoria ");
                         System.out.println(" 2 - Listar Categoria ");
@@ -134,7 +138,10 @@ public class Sistema {
                         x = 0;
 
                         break;
+                    //#endregion
+                    
                     case 2:
+                    //#region
 
                         // Custo
                         System.out.println(" 1 - Adicionar Custo ");
@@ -164,7 +171,10 @@ public class Sistema {
                         x = 0;
 
                         break;
+                    //#endregion
+                    
                     case 3:
+                    //#region
 
                         // Preparo
                         System.out.println(" 1 - Adicionar Preparo ");
@@ -198,7 +208,10 @@ public class Sistema {
                         x = 0;
 
                         break;
+                    //#endregion
+                    
                     case 4:
+                    //#region
 
                         // Utensilio
                         System.out.println(" 1 - Adicionar Utensilio ");
@@ -225,7 +238,10 @@ public class Sistema {
                         x = 0;
 
                         break;
+                    //#endregion
+                    
                     case 5:
+                    //#region
                         // Receita
                         System.out.println(" 1 - Adicionar Receita ");
                         System.out.println(" 2 - Listar Receita ");
@@ -246,10 +262,10 @@ public class Sistema {
                             
                             // Escolhendo os objetos da receita
                             Boolean chaveDois = true;
-                            Categoria categoriaEscolhido;
-                            Custo custoEscolhido;
-                            Preparo preparoEscolhido;
-                            Utensilio utensilioEscolhido;
+                            Categoria categoriaEscolhido = new Categoria();
+                            Custo custoEscolhido = new Custo();
+                            Preparo preparoEscolhido = new Preparo();
+                            Utensilio utensilioEscolhido = new Utensilio();
 
                             //#region Loop para escolher os elementos da receita
                             while (chaveDois) {
@@ -310,11 +326,10 @@ public class Sistema {
                             }
                             //#endregion
 
-
                             Receita receita = new Receita(ID, titulo, descricao, imagem, custoEscolhido, preparoEscolhido, categoriaEscolhido, utensilioEscolhido);
                             receitaArray.add(receita);
 
-                            System.out.println("Receita Adicionada");
+                            System.out.println("Receita Adicionada" + receita.toString());
 
                         } else if (x == 2) {
                             for (Receita r : receitaArray)
@@ -324,7 +339,10 @@ public class Sistema {
                         x = 0;
 
                         break;
+                    //#endregion
+                    
                     case 6:
+                    //#region
 
                         chave = false;
                         System.out.println("Encerrando o programa...");
@@ -333,7 +351,9 @@ public class Sistema {
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
                         break;
+                //#endregion
                 }
+                
             };
             //#endregion
 
