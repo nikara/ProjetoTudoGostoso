@@ -1,8 +1,8 @@
-package TudoGostoso;
+package TudoGostoso.model;
 
 public class Usuario {
 
-//#region Atributos 
+//#region Atributos do usuario;
     private int idUsuario;
     private String nome;
     private String Email;
@@ -119,12 +119,6 @@ public class Usuario {
 
 // Construtor que inicia um usuario pre-existente
 
-public Usuario(String nome, String email, String senha){
-    this.nome = nome;
-    this.Email = email;
-    this.Senha = senha;
-}
-
 // Autenticar Usuario
 
 public void autenticarUsuario (String nomeString, String emailString,String senhaString ){
@@ -136,11 +130,14 @@ System.out.println("Senha do Usuario:" + senhaString);
 
 if(nomeString == getNome() && emailString == getEmail() && senhaString == getSenha() ){
     System.out.println("Usuario reconhecido");
-}
+}};
 
-};
+// Cria receita do usuario
 
+// public Receita CrairReceita(Categoria categoria,Custo custo, Preparo preparo, Utensilio utensilio){
 
+//    return Receita();
+//}
 
 //#endregion
 

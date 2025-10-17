@@ -1,8 +1,6 @@
-package TudoGostoso;
+package TudoGostoso.model;
 
 public class Administrador extends Usuario {
-
-
 
     //#region Construtor
         public Administrador(int idUsuario, String nome, String email, String data_nascimento, int cep, String genero, String senha, String salt, String inscrito, String uuid){
@@ -10,6 +8,8 @@ public class Administrador extends Usuario {
 
         }
     //#endregion
+
+    
 
     
 

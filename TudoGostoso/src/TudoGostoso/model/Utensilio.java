@@ -1,4 +1,4 @@
-package TudoGostoso;
+package TudoGostoso.model;
 
 public class Utensilio {
 //#region Atriburos

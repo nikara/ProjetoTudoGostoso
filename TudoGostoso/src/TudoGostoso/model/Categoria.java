@@ -1,4 +1,4 @@
-package TudoGostoso;
+package TudoGostoso.model;
 
 public class Categoria {
 //#region Atributos
@@ -8,6 +8,10 @@ public class Categoria {
 //#endregion
 
 //#region Construtor
+    public Categoria(){
+
+    };
+
     public Categoria(int idCategoria, String Categoria,Boolean Status){
         this.idCategoria = idCategoria;
         this.categoria = Categoria;
@@ -39,6 +43,12 @@ public class Categoria {
     public boolean getStatus(){
         return status;
     }
+//#endregion
+
+//#region Metodos
+
+
+
 //#endregion
 
 //#region Sobrecarga

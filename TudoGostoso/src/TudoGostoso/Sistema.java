@@ -2,6 +2,7 @@ package TudoGostoso;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import TudoGostoso.model.*;
 
 public class Sistema {
     public static void main(String[] args) {
@@ -12,8 +13,10 @@ public class Sistema {
         ArrayList<Custo> custoArray = new ArrayList<Custo>();
         ArrayList<Preparo> preparoArray = new ArrayList<Preparo>();
         ArrayList<Utensilio> utensilioArray = new ArrayList<Utensilio>();
+        
         ArrayList<Receita> receitaArray = new ArrayList<Receita>();
         ArrayList<Usuario> usuarioArray = new ArrayList<Usuario>();
+
 
         // #endregion
 
@@ -83,10 +86,8 @@ public class Sistema {
                 System.out.println(" 6 - Fechar o Programa");
 
                 System.out.println(" Escolhar uma Opção");
-                opcao = null;
+                opcao = 0;
                 opcao = sc.nextInt();
-
-
 
                 switch (opcao) {
                     case 1:
@@ -242,14 +243,75 @@ public class Sistema {
                             String descricao = sc.nextLine();
                             System.out.println("Digite o caminho da Imagem");
                             String imagem = sc.nextLine();
-                            System.out.println("Escolha o indice dos elementos");
-                            int index = sc.nextInt();
+                            
+                            // Escolhendo os objetos da receita
+                            Boolean chaveDois = true;
+                            Categoria categoriaEscolhido;
+                            Custo custoEscolhido;
+                            Preparo preparoEscolhido;
+                            Utensilio utensilioEscolhido;
 
-                            Receita receita = new Receita(ID, titulo, descricao, imagem);
-                            receita.adicionarCusto(custoArray.get(index - 1));
-                            receita.adicionarCategoria(categoriaArray.get(index - 1));
-                            receita.adicionarPreparos(preparoArray.get(index - 1));
-                            receita.adicionarUtensilios(utensilioArray.get(index - 1));
+                            //#region Loop para escolher os elementos da receita
+                            while (chaveDois) {
+                                System.out.println("Escolha os elementos da receita");
+                                System.out.println(" 1 - Caterigoria");
+                                System.out.println(" 2 - Custo");
+                                System.out.println(" 3 - Preparo");
+                                System.out.println(" 4 - Utensilio");
+                                System.out.println(" 5 - Sair do menu");
+                                opcao = 0;
+                                opcao = sc.nextInt();
+                                
+
+                                //#region Estrutura de Condição
+                                if(opcao == 1){ // Categoria
+                                    for (Categoria categoria : categoriaArray) {
+                                        System.out.println(categoria);
+                                        System.out.println("Escolha uma das Categorias");
+                                        opcao = 0;
+                                        opcao = sc.nextInt();
+                                        categoriaEscolhido = categoriaArray.get(opcao);
+                                    }
+                                }
+                                else if(opcao == 2){ // Custo
+                                    for (Custo custo : custoArray) {
+                                        System.out.println(custo);
+                                        System.out.println("Escolha uma das Categorias");
+                                        opcao = 0;
+                                        opcao = sc.nextInt();
+                                        custoEscolhido = custoArray.get(opcao);
+                                    }
+                                }
+                                else if(opcao == 3){ // Preparo
+                                    for (Preparo preparo : preparoArray) {
+                                        System.out.println(preparo);
+                                        System.out.println("Escolha uma das Categorias");
+                                        opcao = 0;
+                                        opcao = sc.nextInt();
+                                        preparoEscolhido = preparoArray.get(opcao);
+                                    }
+                                }
+                                else if(opcao == 4){ // Utensilio
+                                    for (Utensilio utensilio : utensilioArray) {
+                                        System.out.println(utensilio);
+                                        System.out.println("Escolha uma das Categorias");
+                                        opcao = 0;
+                                        opcao = sc.nextInt();
+                                        utensilioEscolhido = utensilioArray.get(opcao);
+                                    }
+                                }
+                                else if(opcao == 5){ //Sair do menu
+                                    chaveDois = false;
+                                } 
+                                else{
+                                    System.out.println("Opção errada tente novamente");
+                                }
+                            //#endregion
+                            }
+                            //#endregion
+
+
+                            Receita receita = new Receita(ID, titulo, descricao, imagem, custoEscolhido, preparoEscolhido, categoriaEscolhido, utensilioEscolhido);
                             receitaArray.add(receita);
 
                             System.out.println("Receita Adicionada");
@@ -284,7 +346,7 @@ public class Sistema {
             
             //#region
             // Apenas o UsuarioMaster e os Administradores podem manter Consumidores 
-            if (opcao) {
+            if (opcao == 3) {
                 
             };
             //#endregion
