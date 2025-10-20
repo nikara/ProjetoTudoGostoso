@@ -9,6 +9,35 @@ public class Administrador extends Usuario {
         }
     //#endregion
 
+    //#region Metódos
+
+    public void gerenciarUsuarios(){
+        System.out.println("Administrador"+getNome()+" está gerenciando usuários.");
+    };
+
+    @Override
+    public void exibirMenu(){
+        System.out.println("Menu do Administrador:");
+        System.out.println("1 - Gerenciar usuários");
+        System.out.println("2 - Aprovar receitas");
+        System.out.println("3 - Visualizar relatórios");
+    }
+    //#endregion
+
+    //#region Metódos sobrecarragados
+    @Override
+    public String toString(){
+        return "Administrador { ID: " + getIdUsuario() +
+        ", Nome: " + getNome() +
+        ", Email: " + getEmail() +
+        ", Data de Nascimento: " + getdataNascimento() +
+        ", CEP: " + getCep() +
+        ", Gênero: " + getGenero() +
+        ", Inscrito: " + getInscrito() + 
+        ", UUID: " + getUuid() +
+        "}";
+    }
+
     
 
     

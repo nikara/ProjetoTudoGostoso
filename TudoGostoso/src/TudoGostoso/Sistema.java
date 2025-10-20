@@ -30,28 +30,13 @@ public class Sistema {
         // Instancia o Scanner
         Scanner sc = new Scanner(System.in);
 
-        // #region Usuario Master Pre-Existente
-        int idUsuarioMaster = 1;
-        String nomeUsuarioMaster = "Adam";
-        String emailUsuarioMaster = "Adam@gmai.com";
-        String data_nascimentoMaster = "00/00/00 00:00:01";
-        int cepMaster = 0000000;
-        String generoMaster = "Homem";
-        String senhaMaster = "777";
-        String saltaMaster = "Primeiro";
-        String inscritoMaster = "Não";
-        String uuidMaster = "1";
+        // #region Criação de instâncias de Administrador e Consumidor usando a herança de Usuario
+        Administrador admin = new Administrador(1,"Admin Master","admin@email.com", "01/01/1990", 12345678, "Masculino", "senhaAdmin", "saltAdmin", "Sim", "uuidAdmin");
+    Consumidor consumidor = new Consumidor(2, "Maria", "maria@email.com", "05/05/1995", 87654321, "Feminino", "senhaMaria", "saltMaria", "Nao", "uuidConsumidor1");
+        
 
-        Usuario usuarioMaster = new Usuario(idUsuarioMaster,
-                nomeUsuarioMaster,
-                emailUsuarioMaster,
-                data_nascimentoMaster,
-                cepMaster,
-                generoMaster,
-                senhaMaster,
-                saltaMaster,
-                inscritoMaster,
-                uuidMaster);
+        usuarioArray.add(admin);
+        usuarioArray.add(consumidor);
 
         // #endregion
 
@@ -363,7 +348,7 @@ public class Sistema {
             // #endregion
 
             // #region
-            // Apenas o UsuarioMaster pode manter Administradores
+            // 
             if (opcao == 2) {
 
             }
