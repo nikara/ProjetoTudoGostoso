@@ -13,10 +13,9 @@ public class Sistema {
         ArrayList<Custo> custoArray = new ArrayList<Custo>();
         ArrayList<Preparo> preparoArray = new ArrayList<Preparo>();
         ArrayList<Utensilio> utensilioArray = new ArrayList<Utensilio>();
-        
+
         ArrayList<Receita> receitaArray = new ArrayList<Receita>();
         ArrayList<Usuario> usuarioArray = new ArrayList<Usuario>();
-
 
         // #endregion
 
@@ -67,310 +66,317 @@ public class Sistema {
             System.out.println(" 1 - Construir Receita");
             System.out.println(" 2 - Administrador");
             System.out.println(" 3 - Consumidor");
-
+            System.out.println(" 4 - Fechar Programa");
 
             int opcao = sc.nextInt();
-            
-            
-            //#region
-            // Administrador e Consumidor podem construir e apagar receitas mas apenas administrador pode apagar receitas de outros consumidores
+
+            // #region
+            // Administrador e Consumidor podem construir e apagar receitas mas apenas
+            // administrador pode apagar receitas de outros consumidores
             // Abre o Menu para construir receita
+
             if (opcao == 1) {
+                while (chave) {
 
-                //#region
-                System.out.println("Construa sua receita");
-                System.out.println(" 1 - Caterigoria");
-                System.out.println(" 2 - Custo");
-                System.out.println(" 3 - Preparo");
-                System.out.println(" 4 - Utensilio");
-                System.out.println(" 5 - Receita");
-                System.out.println(" 6 - Fechar o Programa");
+                    // #region
+                    System.out.println("Construa sua receita");
+                    System.out.println(" 1 - Caterigoria");
+                    System.out.println(" 2 - Custo");
+                    System.out.println(" 3 - Preparo");
+                    System.out.println(" 4 - Utensilio");
+                    System.out.println(" 5 - Receita");
+                    System.out.println(" 6 - Fechar o Programa");
 
-                System.out.println(" Escolhar uma Opção");
-                opcao = 0;
-                opcao = sc.nextInt();
-                //#endregion
+                    System.out.println(" Escolhar uma Opção");
+                    opcao = 0;
+                    opcao = sc.nextInt();
+                    // #endregion
 
-            //#region
-                switch (opcao) {
-                    
-                    case 1:
-                    //#region
-                        // Categoria
-                        System.out.println(" 1 - Adicionar Categoria ");
-                        System.out.println(" 2 - Listar Categoria ");
-                        System.out.println(" 3 - Escolher elemento");
-                        int x = sc.nextInt();
-                        if (x == 1) {
+                    // #region
+                    switch (opcao) {
 
-                            System.out.println("Digite o ID");
-                            int ID = sc.nextInt();
+                        case 1:
+                            // #region
+                            // Categoria
+                            System.out.println(" 1 - Adicionar Categoria ");
+                            System.out.println(" 2 - Listar Categoria ");
+                            System.out.println(" 3 - Escolher elemento");
+                            int x = sc.nextInt();
+                            if (x == 1) {
 
-                            System.out.println("Digite a Categoria");
-                            String categoriaString = sc.next();
+                                System.out.println("Digite o ID");
+                                int ID = sc.nextInt();
 
-                            System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
-                            int CondicaoStatus = sc.nextInt();
+                                System.out.println("Digite a Categoria");
+                                String categoriaString = sc.next();
 
-                            Boolean StatusBool;
+                                System.out.println("Escolha o Status 1 para Ativo 0 para Inativo");
+                                int CondicaoStatus = sc.nextInt();
 
-                            if (CondicaoStatus == 1) {
-                                StatusBool = true;
-                            } else {
-                                StatusBool = false;
+                                Boolean StatusBool;
+
+                                if (CondicaoStatus == 1) {
+                                    StatusBool = true;
+                                } else {
+                                    StatusBool = false;
+                                }
+
+                                Categoria categoria = new Categoria(ID, categoriaString, StatusBool);
+                                categoriaArray.add(categoria);
+
+                            } else if (x == 2) {
+                                for (Categoria c : categoriaArray) {
+                                    System.out.println(c);
+                                }
+                            } else if (x == 3) {
+                                System.out.println("Escolha um do elementos");
+                                for (int t = 0; t < categoriaArray.size(); t++) {
+                                    System.out.println(
+                                            "O indice do elemento e " + t + " o elemento e" + categoriaArray.get(t));
+                                }
                             }
 
-                            Categoria categoria = new Categoria(ID, categoriaString, StatusBool);
-                            categoriaArray.add(categoria);
+                            x = 0;
 
-                        } else if (x == 2) {
-                            for (Categoria c : categoriaArray) {
-                                System.out.println(c);
+                            break;
+                        // #endregion
+
+                        case 2:
+                            // #region
+
+                            // Custo
+                            System.out.println(" 1 - Adicionar Custo ");
+                            System.out.println(" 2 - Listar Custo ");
+                            x = sc.nextInt();
+                            if (x == 1) {
+                                System.out.println("Digite o ID");
+
+                                int ID = sc.nextInt();
+
+                                // Para consumir o enter
+                                sc.nextLine();
+
+                                System.out.println("Digite o Custo");
+
+                                String custoString = sc.nextLine();
+
+                                Custo custo = new Custo(ID, custoString);
+                                custoArray.add(custo);
+
+                            } else if (x == 2) {
+                                for (Custo custo : custoArray) {
+                                    System.out.println(custo);
+                                }
+
                             }
-                        } else if (x == 3) {
-                            System.out.println("Escolha um do elementos");
-                            for (int t = 0; t < categoriaArray.size(); t++) {
-                                System.out.println(
-                                        "O indice do elemento e " + t + " o elemento e" + categoriaArray.get(t));
-                            }
-                        }
+                            x = 0;
 
-                        x = 0;
+                            break;
+                        // #endregion
 
-                        break;
-                    //#endregion
-                    
-                    case 2:
-                    //#region
+                        case 3:
+                            // #region
 
-                        // Custo
-                        System.out.println(" 1 - Adicionar Custo ");
-                        System.out.println(" 2 - Listar Custo ");
-                        x = sc.nextInt();
-                        if (x == 1) {
-                            System.out.println("Digite o ID");
+                            // Preparo
+                            System.out.println(" 1 - Adicionar Preparo ");
+                            System.out.println(" 2 - Listar Preparo ");
+                            x = sc.nextInt();
+                            if (x == 1) {
 
-                            int ID = sc.nextInt();
+                                System.out.println("Digite o ID");
+                                int ID = sc.nextInt();
 
-                            // Para consumir o enter
-                            sc.nextLine();
+                                // Para consumir o enter
+                                sc.nextLine();
 
-                            System.out.println("Digite o Custo");
+                                System.out.println("Digite o Modo de Preparo");
+                                String modoDePreString = sc.nextLine();
 
-                            String custoString = sc.nextLine();
+                                System.out.println("Digite o Url do Video");
+                                String urlString = sc.nextLine();
 
-                            Custo custo = new Custo(ID, custoString);
-                            custoArray.add(custo);
+                                System.out.println("Digite o Tempo de preparo");
+                                String tempoDePreparo = sc.nextLine();
 
-                        } else if (x == 2) {
-                            for (Custo custo : custoArray) {
-                                System.out.println(custo);
+                                Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
+                                preparoArray.add(preparo);
+                            } else if (x == 2) {
+                                for (Preparo preparo : preparoArray) {
+                                    System.out.println(preparo);
+                                }
                             }
 
-                        }
-                        x = 0;
+                            x = 0;
 
-                        break;
-                    //#endregion
-                    
-                    case 3:
-                    //#region
+                            break;
+                        // #endregion
 
-                        // Preparo
-                        System.out.println(" 1 - Adicionar Preparo ");
-                        System.out.println(" 2 - Listar Preparo ");
-                        x = sc.nextInt();
-                        if (x == 1) {
+                        case 4:
+                            // #region
 
-                            System.out.println("Digite o ID");
-                            int ID = sc.nextInt();
+                            // Utensilio
+                            System.out.println(" 1 - Adicionar Utensilio ");
+                            System.out.println(" 2 - Listar Utensilio ");
+                            x = sc.nextInt();
+                            if (x == 1) {
+                                System.out.println("Digite o ID");
+                                int ID = sc.nextInt();
 
-                            // Para consumir o enter
-                            sc.nextLine();
+                                // Para consumir o enter
+                                sc.nextLine();
 
-                            System.out.println("Digite o Modo de Preparo");
-                            String modoDePreString = sc.nextLine();
+                                System.out.println("Digite o Utensilio");
+                                String utensilioString = sc.nextLine();
 
-                            System.out.println("Digite o Url do Video");
-                            String urlString = sc.nextLine();
-
-                            System.out.println("Digite o Tempo de preparo");
-                            String tempoDePreparo = sc.nextLine();
-
-                            Preparo preparo = new Preparo(ID, modoDePreString, urlString, tempoDePreparo);
-                            preparoArray.add(preparo);
-                        } else if (x == 2) {
-                            for (Preparo preparo : preparoArray) {
-                                System.out.println(preparo);
+                                Utensilio utensilio = new Utensilio(ID, utensilioString);
+                                utensilioArray.add(utensilio);
+                            } else if (x == 2) {
+                                for (Utensilio utensilio : utensilioArray) {
+                                    System.out.println(utensilio);
+                                }
                             }
-                        }
 
-                        x = 0;
+                            x = 0;
 
-                        break;
-                    //#endregion
-                    
-                    case 4:
-                    //#region
+                            break;
+                        // #endregion
 
-                        // Utensilio
-                        System.out.println(" 1 - Adicionar Utensilio ");
-                        System.out.println(" 2 - Listar Utensilio ");
-                        x = sc.nextInt();
-                        if (x == 1) {
-                            System.out.println("Digite o ID");
-                            int ID = sc.nextInt();
+                        case 5:
+                            // #region
+                            // Receita
+                            System.out.println(" 1 - Adicionar Receita ");
+                            System.out.println(" 2 - Listar Receita ");
+                            x = sc.nextInt();
+                            if (x == 1) {
+                                System.out.println("Digite o ID");
+                                int ID = sc.nextInt();
 
-                            // Para consumir o enter
-                            sc.nextLine();
+                                // Para consumir o enter
+                                sc.nextLine();
 
-                            System.out.println("Digite o Utensilio");
-                            String utensilioString = sc.nextLine();
+                                System.out.println("Digite o titulo");
+                                String titulo = sc.nextLine();
+                                System.out.println("Digite a Descrição");
+                                String descricao = sc.nextLine();
+                                System.out.println("Digite o caminho da Imagem");
+                                String imagem = sc.nextLine();
 
-                            Utensilio utensilio = new Utensilio(ID, utensilioString);
-                            utensilioArray.add(utensilio);
-                        } else if (x == 2) {
-                            for (Utensilio utensilio : utensilioArray) {
-                                System.out.println(utensilio);
-                            }
-                        }
+                                // Escolhendo os objetos da receita
+                                Boolean chaveDois = true;
+                                Categoria categoriaEscolhido = new Categoria();
+                                Custo custoEscolhido = new Custo();
+                                Preparo preparoEscolhido = new Preparo();
+                                Utensilio utensilioEscolhido = new Utensilio();
 
-                        x = 0;
+                                // #region Loop para escolher os elementos da receita
+                                while (chaveDois) {
+                                    System.out.println("Escolha os elementos da receita");
+                                    System.out.println(" 1 - Caterigoria");
+                                    System.out.println(" 2 - Custo");
+                                    System.out.println(" 3 - Preparo");
+                                    System.out.println(" 4 - Utensilio");
+                                    System.out.println(" 5 - Sair do menu");
+                                    opcao = 0;
+                                    opcao = sc.nextInt();
 
-                        break;
-                    //#endregion
-                    
-                    case 5:
-                    //#region
-                        // Receita
-                        System.out.println(" 1 - Adicionar Receita ");
-                        System.out.println(" 2 - Listar Receita ");
-                        x = sc.nextInt();
-                        if (x == 1) {
-                            System.out.println("Digite o ID");
-                            int ID = sc.nextInt();
-
-                            // Para consumir o enter
-                            sc.nextLine();
-
-                            System.out.println("Digite o titulo");
-                            String titulo = sc.nextLine();
-                            System.out.println("Digite a Descrição");
-                            String descricao = sc.nextLine();
-                            System.out.println("Digite o caminho da Imagem");
-                            String imagem = sc.nextLine();
-                            
-                            // Escolhendo os objetos da receita
-                            Boolean chaveDois = true;
-                            Categoria categoriaEscolhido = new Categoria();
-                            Custo custoEscolhido = new Custo();
-                            Preparo preparoEscolhido = new Preparo();
-                            Utensilio utensilioEscolhido = new Utensilio();
-
-                            //#region Loop para escolher os elementos da receita
-                            while (chaveDois) {
-                                System.out.println("Escolha os elementos da receita");
-                                System.out.println(" 1 - Caterigoria");
-                                System.out.println(" 2 - Custo");
-                                System.out.println(" 3 - Preparo");
-                                System.out.println(" 4 - Utensilio");
-                                System.out.println(" 5 - Sair do menu");
-                                opcao = 0;
-                                opcao = sc.nextInt();
-                                
-
-                                //#region Estrutura de Condição
-                                if(opcao == 1){ // Categoria
-                                    for (Categoria categoria : categoriaArray) {
-                                        System.out.println(categoria);
-                                        System.out.println("Escolha uma das Categorias");
+                                    // #region Estrutura de Condição
+                                    if (opcao == 1) { // Categoria
+                                        for (Categoria categoria : categoriaArray) {
+                                            System.out.println(categoria);
+                                            System.out.println("Escolha uma das Categorias");
+                                        }
                                         opcao = 0;
                                         opcao = sc.nextInt();
-                                        categoriaEscolhido = categoriaArray.get(opcao);
-                                    }
-                                }
-                                else if(opcao == 2){ // Custo
-                                    for (Custo custo : custoArray) {
-                                        System.out.println(custo);
-                                        System.out.println("Escolha uma das Categorias");
+                                        categoriaEscolhido = categoriaArray.get(opcao-1);
+
+                                    } else if (opcao == 2) { // Custo
+                                        for (Custo custo : custoArray) {
+                                            System.out.println(custo);
+                                            System.out.println("Escolha uma das Categorias");
+                                        }
                                         opcao = 0;
                                         opcao = sc.nextInt();
-                                        custoEscolhido = custoArray.get(opcao);
-                                    }
-                                }
-                                else if(opcao == 3){ // Preparo
-                                    for (Preparo preparo : preparoArray) {
-                                        System.out.println(preparo);
-                                        System.out.println("Escolha uma das Categorias");
+                                        custoEscolhido = custoArray.get(opcao-1);
+
+                                    } else if (opcao == 3) { // Preparo
+                                        for (Preparo preparo : preparoArray) {
+                                            System.out.println(preparo);
+                                            System.out.println("Escolha uma das Categorias");
+                                        }
                                         opcao = 0;
                                         opcao = sc.nextInt();
-                                        preparoEscolhido = preparoArray.get(opcao);
-                                    }
-                                }
-                                else if(opcao == 4){ // Utensilio
-                                    for (Utensilio utensilio : utensilioArray) {
-                                        System.out.println(utensilio);
-                                        System.out.println("Escolha uma das Categorias");
+                                        preparoEscolhido = preparoArray.get(opcao-1);
+
+                                    } else if (opcao == 4) { // Utensilio
+                                        for (Utensilio utensilio : utensilioArray) {
+                                            System.out.println(utensilio);
+                                            System.out.println("Escolha uma das Categorias");
+                                        }
+                                        ;
                                         opcao = 0;
                                         opcao = sc.nextInt();
-                                        utensilioEscolhido = utensilioArray.get(opcao);
+                                        utensilioEscolhido = utensilioArray.get(opcao-1);
+
+                                    } else if (opcao == 5) { // Sair do menu
+                                        chaveDois = false;
+                                    } else {
+                                        System.out.println("Opção errada tente novamente");
                                     }
+                                    // #endregion
                                 }
-                                else if(opcao == 5){ //Sair do menu
-                                    chaveDois = false;
-                                } 
-                                else{
-                                    System.out.println("Opção errada tente novamente");
-                                }
-                            //#endregion
+                                // #endregion
+
+                                Receita receita = new Receita(ID, titulo, descricao, imagem, custoEscolhido,
+                                        preparoEscolhido, categoriaEscolhido, utensilioEscolhido);
+                                receitaArray.add(receita);
+
+                                System.out.println("Receita Adicionada" + receita.toString());
+
+                            } else if (x == 2) {
+                                for (Receita r : receitaArray)
+                                    System.out.println(r);
                             }
-                            //#endregion
 
-                            Receita receita = new Receita(ID, titulo, descricao, imagem, custoEscolhido, preparoEscolhido, categoriaEscolhido, utensilioEscolhido);
-                            receitaArray.add(receita);
+                            x = 0;
 
-                            System.out.println("Receita Adicionada" + receita.toString());
+                            break;
+                        // #endregion
 
-                        } else if (x == 2) {
-                            for (Receita r : receitaArray)
-                                System.out.println(r);
-                        }
+                        case 6:
+                            // #region
 
-                        x = 0;
+                            chave = false;
+                            System.out.println("Encerrando o programa...");
+                            break;
 
-                        break;
-                    //#endregion
-                    
-                    case 6:
-                    //#region
-
-                        chave = false;
-                        System.out.println("Encerrando o programa...");
-                        break;
-
-                    default:
-                        System.out.println("Opção inválida. Tente novamente.");
-                        break;
-                //#endregion
+                        default:
+                            System.out.println("Opção inválida. Tente novamente.");
+                            break;
+                        // #endregion
+                    }
+                    ;
                 }
-                
-            };
-            //#endregion
+                ;
 
-            //#region 
-            // Apenas o UsuarioMaster pode manter Administradores 
-            if(opcao == 2){
+            }
+            ;
+            // #endregion
 
-            };
-            //#endregion
-            
-            //#region
-            // Apenas o UsuarioMaster e os Administradores podem manter Consumidores 
+            // #region
+            // Apenas o UsuarioMaster pode manter Administradores
+            if (opcao == 2) {
+
+            }
+            ;
+            // #endregion
+
+            // #region
+            // Apenas o UsuarioMaster e os Administradores podem manter Consumidores
             if (opcao == 3) {
-                
-            };
-            //#endregion
 
+            }
+            ;
+            // #endregion
 
         }
         // #endregion
