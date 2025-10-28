@@ -106,7 +106,7 @@ public class Categoria implements HttpHandler {
         StringBuilder json = new StringBuilder("[");
         for (int i = 0; i < categorias.size(); i++){
             Categoria c = categorias.get(i);
-            json.append(String.format("{\"Id\": \"%d\",\"Categoria\": \"%s\",\"Status\": \"%s\"}",
+            json.append(String.format("{\"id\": \"%s\",\"categoria\": \"%s\"}",
             c.getIdCategoria(),c.getCategoria()));
             if(i < categorias.size() - 1) json.append(",");
         }
