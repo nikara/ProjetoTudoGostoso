@@ -106,14 +106,14 @@ public class Categoria implements HttpHandler {
         StringBuilder json = new StringBuilder("[");
         for (int i = 0; i < categorias.size(); i++){
             Categoria c = categorias.get(i);
-            json.append(String.format("{\"id\": \"%s\",\"categoria\": \"%s\"}",
+            json.append(String.format("{\"id\": \"%d\",\"categoria\": \"%s\"}",
             c.getIdCategoria(),c.getCategoria()));
             if(i < categorias.size() - 1) json.append(",");
         }
         json.append("]");
 
         byte[] bytes = json.toString().getBytes(StandardCharsets.UTF_8);
-        exchange.getRequestHeaders().add("Content-Type", "aplication/json; charset = UTF-8");
+        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
         exchange.sendResponseHeaders(200, bytes.length);
         try(OutputStream os = exchange.getResponseBody()){
             os.write(bytes);
@@ -133,8 +133,8 @@ public class Categoria implements HttpHandler {
 
         new Categoria(categoria,ativo);
 
-        String respose = "{\"message\":\"Categoria adicionada com sucesso\"}";
-        byte[] bytes = respose.getBytes(StandardCharsets.UTF_8);
+        String response = "{\"message\":\"Categoria adicionada com sucesso\"}";
+        byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
 
         exchange.getResponseHeaders().add("Content-Type","application/json; charset=UTF-8");
         exchange.sendResponseHeaders(201, bytes.length);
