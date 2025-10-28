@@ -14,7 +14,7 @@ public class app {
         HttpServer server = HttpServer.create(new InetSocketAddress(8089), 0);
 
         // Definindo as rotas
-        server.createContext("/Administrador", new Administrador());
+        server.createContext("/Categoria", new Categoria());
         
 
         // Iniciando o servidor
