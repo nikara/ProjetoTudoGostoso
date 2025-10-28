@@ -100,7 +100,7 @@ public class Utensilio implements HttpHandler {
         // Exemplo de entrada: {"nome":"Italiana", "ativo":"true"}
         
         String sUtensilio = body.replaceAll(".*\"Utensílio\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        boolean ativo = sUtensilio.toLowerCase().equals("true");
+        //boolean ativo = sUtensilio.toLowerCase().equals("true");
 
         new Utensilio(idUtensilio, Utensilio);
 
