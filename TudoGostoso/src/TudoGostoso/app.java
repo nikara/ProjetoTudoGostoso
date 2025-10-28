@@ -20,7 +20,7 @@ public class app {
         // Iniciando o servidor
         server.setExecutor(null);
         server.start();
-        System.out.println("Servidor rodando em http://localhost:8089/");
+        System.out.println("Servidor rodando em http://localhost:8089");
     }
     
 }

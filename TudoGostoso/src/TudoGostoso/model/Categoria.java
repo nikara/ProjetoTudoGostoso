@@ -125,7 +125,7 @@ public class Categoria implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-       
+       // Exemplo de entrada: {"categoria":"Ruim", "Status":"true"}
         String categoria = body.replaceAll(".*\"categoria\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String status = body.replaceAll(".*\"status\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         boolean ativo = status.toLowerCase().equals("true");
