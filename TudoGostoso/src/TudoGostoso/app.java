@@ -15,7 +15,7 @@ public class app {
 
         // Definindo as rotas
         server.createContext("/Categoria", new Categoria());
-        
+        server.createContext("/Utensilio", new Utensilio());
 
         // Iniciando o servidor
         server.setExecutor(null);

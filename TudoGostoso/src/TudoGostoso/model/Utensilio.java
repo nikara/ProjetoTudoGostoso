@@ -97,14 +97,14 @@ public class Utensilio implements HttpHandler {
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
         // Parse simples (sem Gson)
-        // Exemplo de entrada: {"nome":"Italiana", "ativo":"true"}
+        // Exemplo de entrada: {"Utensilio":"Faca"}
         
         String sUtensilio = body.replaceAll(".*\"Utensílio\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         //boolean ativo = sUtensilio.toLowerCase().equals("true");
 
         new Utensilio(idUtensilio, Utensilio);
 
-        String response = "{\"message\": \"Categoria adicionada com sucesso\"}";
+        String response = "{\"message\": \"Utensilio adicionado com sucesso\"}";
         byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
 
         exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
