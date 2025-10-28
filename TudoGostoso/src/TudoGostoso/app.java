@@ -1,4 +1,4 @@
-wpackage TudoGostoso;
+package TudoGostoso;
 
 import com.sun.net.httpserver.HttpServer;
 
