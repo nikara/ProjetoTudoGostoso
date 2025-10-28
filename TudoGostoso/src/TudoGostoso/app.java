@@ -14,13 +14,13 @@ public class app {
         HttpServer server = HttpServer.create(new InetSocketAddress(8089), 0);
 
         // Definindo as rotas
-        server.createContext("/Administrador", new Administrador());
+        server.createContext("/Categoria", new Categoria());
         
 
         // Iniciando o servidor
         server.setExecutor(null);
         server.start();
-        System.out.println("Servidor rodando em http://localhost:8089/");
+        System.out.println("Servidor rodando em http://localhost:8089");
     }
     
 }
