@@ -1,0 +1,33 @@
+package TudoGostoso;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public abstract class DAO {
+    
+    private static Connection connection;
+
+
+    public static Connection createConnection(){
+        try{
+            final String URL = "jdbc:mysql://localhost:3306/tudogostoso";
+            final String USER = "root";
+            final String PASSWORD = "123456";
+
+            connection = DriverManager.getConnection(URL,USER,PASSWORD);
+            return connection;
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void closeConnection(){
+        try{
+            connectio.close();
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+}
