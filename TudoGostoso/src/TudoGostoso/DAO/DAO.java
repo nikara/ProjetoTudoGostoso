@@ -1,4 +1,4 @@
-package TudoGostoso;
+package TudoGostoso.DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,7 +24,7 @@ public abstract class DAO {
 
     public static void closeConnection(){
         try{
-            connectio.close();
+            connection.close();
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
