@@ -1,21 +1,21 @@
 package TudoGostoso.DAO;
 
+import TudoGostoso.model.Receita;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import TudoGostoso.model.Receita;
 
 
 public class ReceitaDAO {
     
-    public void inserir(Receita receita) throws Exception{
+    public void inserirReceita(Receita receita) throws Exception{
         Connection connection = DAO.createConnection();
 
         PreparedStatement stmt = connection.prepareStatement(
-            "INSERTO into receitas (titulo,descricao,imagem) VALUES (?,?,?)"
+            "INSERT into receitas (titulo,descricao,imagem) VALUES (?,?,?);"
             );
         stmt.setString(1, receita.getTitulo());
         stmt.setString(2, receita.getDescricao());
@@ -24,6 +24,43 @@ public class ReceitaDAO {
         stmt.executeUpdate();
         stmt.close();
         DAO.closeConnection();
+    }
+
+    public void deletarReceita(Receita receita) throws Exception{
+        Connection connection = DAO.createConnection();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(
+                "DELETE FROM receitas WHERE idReceita = ?; ");
+            stmt.setInt(1, receita.getIdReceita());
+
+            int verifica = stmt.executeUpdate();
+            if( verifica == 0){
+                throw new Exception("Nenhuma receita encontrada com i ID informado.");
+            }
+        }catch(SQLException e){
+            throw new Exception("Erro ao deletar receita: " + e.getMessage(), e);
+        }
+    }
+
+    public void atualizarReceita(Receita receita) throws Exception{
+        Connection connection = DAO.createConnection();
+        try {
+            PreparedStatement stmt = connection.prepareStatement("UPDATE receitas SET titulo = ?,descricao = ?, imagem = ? WHERE idReceita = ?; ");
+            
+            stmt.setString(1, receita.getTitulo());
+            stmt.setString(2, receita.getDescricao());
+            stmt.setString(3, receita.getImagem());
+            stmt.setInt(4, receita.getIdReceita());
+
+            int verifica = stmt.executeUpdate();
+
+            if(verifica == 0){
+                throw new Exception("Nenhuma receita encontrada para atualizar.");
+            }
+
+        } catch (SQLException e) {
+            throw new Exception("Erro ao atualizar receita: " + e.getMessage(), e);
+        }
     }
 
     public Receita buscarPorId(int idReceita) throws Exception{
@@ -67,5 +104,7 @@ public class ReceitaDAO {
 
         return lista;
     }
+
+
 
 }
