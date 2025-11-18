@@ -1,16 +1,12 @@
 package TudoGostoso.DAO;
 
-import TudoGostoso.model.Categoria;
 import TudoGostoso.model.Preparo;
 
-import java.beans.PropertyDescriptor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import java.sql.SQLException;
 
 public class PreparoDAO {
@@ -19,7 +15,7 @@ public class PreparoDAO {
         Connection connection = DAO.createConnection();
 
         try{
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO preparo (modoPreparo,urlVideo,tempoDePreparo) VALUE (?,?,?);");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO preparo (modoPreparo,urlVideo,tempoDePreparo) VALUES (?,?,?);");
             stmt.setString(1,preparo.getModoPreparo());
             stmt.setString(2, preparo.getUrlVideo());
             stmt.setString(3, preparo.getTempoDePreparo());
@@ -36,7 +32,7 @@ public class PreparoDAO {
         }
     }
 
-    public void deletarProduto(Preparo preparo) throws Exception{
+    public void deletarPreparo(Preparo preparo) throws Exception{
         Connection connection = DAO.createConnection();
 
         try{
@@ -58,10 +54,10 @@ public class PreparoDAO {
     public void atualizarPreparo(Preparo preparo) throws Exception{
         Connection connection = DAO.createConnection();
         try{
-            PreparedStatement stmt = connection.prepareStatement("UPDATE preparo SET modoPreparo = ?, urlVideo = ?, tempoDePreparo = ? HWERE idPreparo = ?; ");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE preparo SET modoPreparo = ?, urlVideo = ?, tempoDePreparo = ? WhERE idPreparo = ?; ");
             stmt.setString(1, preparo.getModoPreparo());
             stmt.setString(2, preparo.getUrlVideo());   
-            stmt.setString(3, preparo.getUrlVideo());
+            stmt.setString(3, preparo.getTempoDePreparo());
             stmt.setInt(4, preparo.getIdPreparo());
 
             int verifica = stmt.executeUpdate();
