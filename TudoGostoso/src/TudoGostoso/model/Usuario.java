@@ -16,6 +16,8 @@ public class Usuario {
     // endregion
 
     // #region Construtor
+    public Usuario(){};
+    
     public Usuario(int idUsuario, String nome, String email, String dataNascimento, int cep, String genero,
             String senha, String salt, String inscrito, String uuid) {
         this.idUsuario = idUsuario;
