@@ -15,7 +15,7 @@ public class ReceitaDAO {
         Connection connection = DAO.createConnection();
 
         PreparedStatement stmt = connection.prepareStatement(
-            "INSERT into receitas (titulo,descricao,imagem) VALUES (?,?,?);"
+            "INSERT into receita (titulo,descricao,imagem) VALUES (?,?,?);"
             );
         stmt.setString(1, receita.getTitulo());
         stmt.setString(2, receita.getDescricao());
@@ -30,7 +30,7 @@ public class ReceitaDAO {
         Connection connection = DAO.createConnection();
         try{
             PreparedStatement stmt = connection.prepareStatement(
-                "DELETE FROM receitas WHERE idReceita = ?; ");
+                "DELETE FROM receita WHERE idReceita = ?; ");
             stmt.setInt(1, receita.getIdReceita());
 
             int verifica = stmt.executeUpdate();
@@ -45,7 +45,7 @@ public class ReceitaDAO {
     public void atualizarReceita(Receita receita) throws Exception{
         Connection connection = DAO.createConnection();
         try {
-            PreparedStatement stmt = connection.prepareStatement("UPDATE receitas SET titulo = ?,descricao = ?, imagem = ? WHERE idReceita = ?; ");
+            PreparedStatement stmt = connection.prepareStatement("UPDATE receita SET titulo = ?,descricao = ?, imagem = ? WHERE idReceita = ?; ");
             
             stmt.setString(1, receita.getTitulo());
             stmt.setString(2, receita.getDescricao());
@@ -86,13 +86,13 @@ public class ReceitaDAO {
     public List<Receita> listarTodas() throws Exception{
         Connection connection = DAO.createConnection();
 
-        ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM receitas;");
+        ResultSet rs = connection.createStatement().executeQuery("SELECT idReceita,titulo,descricao,imagem FROM receitas;");
         List<Receita> lista = new ArrayList<>();
 
         while (rs.next()) {
             Receita receita = new Receita(
                 rs.getString("titulo"),
-                rs.getString("descriacao"),
+                rs.getString("descricao"),
                 rs.getString("imagem"),
                 null,null,null,null    
             );

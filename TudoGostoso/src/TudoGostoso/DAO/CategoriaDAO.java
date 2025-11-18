@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.mysql.cj.x.protobuf.MysqlxPrepare.Prepare;
 import java.sql.SQLException;
 
 public class CategoriaDAO {
@@ -17,7 +15,7 @@ public class CategoriaDAO {
 
         try {
             PreparedStatement stmt = connection
-                    .prepareStatement("INSERT into categoria (categoria,status) VALUE (?,?);");
+                    .prepareStatement("INSERT into categoria (categoria,status) VALUES (?,?);");
             stmt.setString(1, categoria.getCategoria());
             stmt.setBoolean(2, categoria.getStatus());
 
@@ -56,7 +54,7 @@ public class CategoriaDAO {
         }
     }
 
-    public void AtualizarCategoria(Categoria categoria) throws Exception {
+    public void atualizarCategoria(Categoria categoria) throws Exception {
         Connection connection = DAO.createConnection();
 
         try {
@@ -82,7 +80,7 @@ public class CategoriaDAO {
     public Categoria buscarPorId(int idCategoria)throws Exception{
         Connection connection = DAO.createConnection();
         try{
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM categoria idReceita = ?");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM categoria WHERE idReceita = ?");
             stmt.setInt(1, idCategoria);
             ResultSet rs = stmt.executeQuery();
             Categoria categoria = null;
@@ -111,7 +109,7 @@ public class CategoriaDAO {
                 rs.getString("categoria"),
                 rs.getBoolean("status")
             ); 
-            categoria.setIdCategoria(rs.getInt("idReceita"));
+            categoria.setIdCategoria(rs.getInt("idCategoria"));
             lista.add(categoria);
         }
         rs.close();
