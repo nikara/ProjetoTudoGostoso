@@ -12,27 +12,35 @@ public class CustoDAO {
 
     public void inserirCusto(Custo custo) throws Exception {
         Connection connection = DAO.createConnection();
+        try {
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO custo (custo) VALUES (?);");
+            stmt.setString(1, custo.getCusto());
 
-        PreparedStatement stmt = connection.prepareStatement(
-                "INSERT into custo (custo) VALUES (?);");
-        stmt.setString(1, custo.getCusto());
+            int verifica = stmt.executeUpdate();
+            if (verifica == 0) {
+                throw new Exception("Nenhum custo inserido.");
+            }
 
-        stmt.executeUpdate();
-        stmt.close();
-        DAO.closeConnection();
+            stmt.close();
+            DAO.closeConnection();
+        } catch (SQLException e) {
+            throw new Exception("Erro ao inserir custo: " + e.getMessage(), e);
+        }
     }
 
     public void deletarCusto(Custo custo) throws Exception {
         Connection connection = DAO.createConnection();
         try {
-            PreparedStatement stmt = connection.prepareStatement(
-                    "DELETE FROM custo WHERE idCusto = ?; ");
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM custo WHERE idCusto = ?;");
             stmt.setInt(1, custo.getId());
 
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {
-                throw new Exception("Nenhum custo encontrado com o ID informado.");
+                throw new Exception("Nenhum custo deletado.");
             }
+
+            stmt.close();
+            DAO.closeConnection();
         } catch (SQLException e) {
             throw new Exception("Erro ao deletar custo: " + e.getMessage(), e);
         }
@@ -41,61 +49,59 @@ public class CustoDAO {
     public void atualizarCusto(Custo custo) throws Exception {
         Connection connection = DAO.createConnection();
         try {
-            PreparedStatement stmt = connection.prepareStatement("UPDATE custo SET custo = ? WHERE idCusto = ?; ");
-
+            PreparedStatement stmt = connection.prepareStatement("UPDATE custo SET custo = ? WHERE idCusto = ?;");
             stmt.setString(1, custo.getCusto());
             stmt.setInt(2, custo.getId());
 
             int verifica = stmt.executeUpdate();
-
             if (verifica == 0) {
-                throw new Exception("Nenhum custo encontrado para atualizar.");
+                throw new Exception("Nenhum custo atualizado.");
             }
 
+            stmt.close();
+            DAO.closeConnection();
         } catch (SQLException e) {
             throw new Exception("Erro ao atualizar custo: " + e.getMessage(), e);
         }
     }
 
-    public Custo buscarPorId(int id) throws Exception {
-        Connection conexao = DAO.createConnection();
-
-        PreparedStatement stmt = conexao.prepareStatement(
-                "SELECT * from custo Where idCusto = ?");
-        stmt.setInt(1, id);
-        ResultSet rs = stmt.executeQuery();
-        Custo custo = null;
-        if (rs.next()) {
-
-            custo = new Custo();
-            custo.setIdCusto(rs.getInt("idCusto"));
-            custo.setCusto(rs.getString("custo"));
-
-        }
-        rs.close();
-        stmt.close();
-        DAO.closeConnection();
-
-        return custo;
-    }
-
-    public List<Custo> listarTodas() throws Exception {
+    public Custo buscarPorId(int idCusto) throws Exception {
         Connection connection = DAO.createConnection();
-
-        ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM custo;");
-        List<Custo> lista = new ArrayList<>();
-
-        while (rs.next()) {
-
-            Custo custo = new Custo();
-            custo.setIdCusto(rs.getInt("idCusto"));
-            custo.setCusto(rs.getString("custo"));
-            lista.add(custo);
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM custo WHERE idCusto = ?;");
+            stmt.setInt(1, idCusto);
+            ResultSet rs = stmt.executeQuery();
+            Custo custo = null;
+            if (rs.next()) {
+                custo = new Custo();
+                custo.setIdCusto(rs.getInt("idCusto"));
+                custo.setCusto(rs.getString("custo"));
+            }
+            rs.close();
+            stmt.close();
+            DAO.closeConnection();
+            return custo;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar custo: " + e.getMessage(), e);
         }
-        rs.close();
-        DAO.closeConnection();
-
-        return lista;
     }
 
+    public List<Custo> listarTodos() throws Exception {
+        Connection connection = DAO.createConnection();
+        try {
+            ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM custo;");
+            List<Custo> lista = new ArrayList<>();
+            while (rs.next()) {
+                Custo custo = new Custo();
+                custo.setIdCusto(rs.getInt("idCusto"));
+                custo.setCusto(rs.getString("custo"));
+                lista.add(custo);
+            }
+            rs.close();
+            DAO.closeConnection();
+            return lista;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao listar custos: " + e.getMessage(), e);
+        }
+    }
 }
