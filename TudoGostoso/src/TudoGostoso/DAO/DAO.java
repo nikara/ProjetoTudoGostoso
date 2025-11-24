@@ -11,9 +11,10 @@ public abstract class DAO {
 
     public static Connection createConnection(){
         try{
-            final String URL = "jdbc:mysql://localhost:3306/tudogostoso";
+            final String URL = "jdbc:mysql://localhost:3306/tudogostoso?useSSL=false&serverTimezone=UTC";
             final String USER = "root";
             final String PASSWORD = "123456";
+
 
             connection = DriverManager.getConnection(URL,USER,PASSWORD);
             return connection;

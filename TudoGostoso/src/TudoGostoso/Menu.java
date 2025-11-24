@@ -7,8 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import TudoGostoso.DAO.DAO;
-import TudoGostoso.API.*;   // importa todos os controllers
-import TudoGostoso.model.*; // importa os models
+import TudoGostoso.API.*;   
+import TudoGostoso.model.*; 
 
 public class Menu {
     public static void main(String[] args) throws IOException {
