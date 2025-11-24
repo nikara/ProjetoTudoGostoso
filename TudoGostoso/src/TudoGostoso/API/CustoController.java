@@ -1,5 +1,6 @@
 package TudoGostoso.API;
 
+import TudoGostoso.DAO.CustoDAO;
 import TudoGostoso.model.Custo;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -8,11 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
 
 public class CustoController implements HttpHandler {
-    private static ArrayList<Custo> custos = new ArrayList<>();
-    private static int contador = 1;
+    private CustoDAO dao = new CustoDAO();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -34,13 +34,18 @@ public class CustoController implements HttpHandler {
 
     private void handleGet(HttpExchange exchange) throws IOException {
         StringBuilder json = new StringBuilder("[");
-        for (int i = 0; i < custos.size(); i++) {
-            Custo c = custos.get(i);
-            json.append(String.format(
-                "{\"id\": \"%s\", \"custo\": \"%s\"}",
-                c.getId(), c.getCusto()
-            ));
-            if (i < custos.size() - 1) json.append(",");
+        try {
+            List<Custo> custos = dao.listarTodos();
+            for (int i = 0; i < custos.size(); i++) {
+                Custo c = custos.get(i);
+                json.append(String.format(
+                    "{\"id\": \"%s\", \"custo\": \"%s\"}",
+                    c.getId(), c.getCusto()
+                ));
+                if (i < custos.size() - 1) json.append(",");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         json.append("]");
 
@@ -56,11 +61,17 @@ public class CustoController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-      
+        // Parse simples do JSON
         String custoValor = body.replaceAll(".*\"custo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
 
-        Custo novo = new Custo(contador++, custoValor);
-        custos.add(novo);
+        Custo novo = new Custo();
+        novo.setCusto(custoValor);
+
+        try {
+            dao.inserirCusto(novo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String response = "{\"message\": \"Custo adicionado com sucesso\"}";
         byte[] bytes = response.getBytes(StandardCharsets.UTF_8);

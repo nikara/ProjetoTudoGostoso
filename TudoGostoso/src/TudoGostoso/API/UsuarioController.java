@@ -1,5 +1,6 @@
 package TudoGostoso.API;
 
+import TudoGostoso.DAO.UsuarioDAO;
 import TudoGostoso.model.Usuario;
 import TudoGostoso.model.Administrador;
 import TudoGostoso.model.Consumidor;
@@ -10,11 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
 
 public class UsuarioController implements HttpHandler {
-    private static ArrayList<Usuario> usuarios = new ArrayList<>();
-    private static int contador = 1;
+    private UsuarioDAO dao = new UsuarioDAO();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -36,14 +36,19 @@ public class UsuarioController implements HttpHandler {
 
     private void handleGet(HttpExchange exchange) throws IOException {
         StringBuilder json = new StringBuilder("[");
-        for (int i = 0; i < usuarios.size(); i++) {
-            Usuario u = usuarios.get(i);
-            String tipo = (u instanceof Administrador) ? "Administrador" : "Consumidor";
-            json.append(String.format(
-                "{\"id\": \"%s\", \"nome\": \"%s\", \"email\": \"%s\", \"tipo\": \"%s\"}",
-                u.getIdUsuario(), u.getNome(), u.getEmail(), tipo
-            ));
-            if (i < usuarios.size() - 1) json.append(",");
+        try {
+            List<Usuario> usuarios = dao.listarTodos();
+            for (int i = 0; i < usuarios.size(); i++) {
+                Usuario u = usuarios.get(i);
+                String tipo = (u instanceof Administrador) ? "Administrador" : "Consumidor";
+                json.append(String.format(
+                    "{\"id\": \"%s\", \"nome\": \"%s\", \"email\": \"%s\", \"tipo\": \"%s\"}",
+                    u.getIdUsuario(), u.getNome(), u.getEmail(), tipo
+                ));
+                if (i < usuarios.size() - 1) json.append(",");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         json.append("]");
 
@@ -59,21 +64,23 @@ public class UsuarioController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        // Parse simples (sem Gson)
-        // Exemplo de entrada:
-        // {"nome":"Nickolas","email":"nick@example.com","tipo":"administrador"}
+        
         String nome = body.replaceAll(".*\"nome\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String email = body.replaceAll(".*\"email\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String tipo = body.replaceAll(".*\"tipo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
 
         Usuario novo;
         if (tipo.equalsIgnoreCase("administrador")) {
-            novo = new Administrador(contador++, nome, email, "", 0, "", "", "", "", "");
+            novo = new Administrador(0, nome, email, "", 0, "", "", "", "", "");
         } else {
-            novo = new Consumidor(contador++, nome, email, "", 0, "", "", "", "", "");
+            novo = new Consumidor(0, nome, email, "", 0, "", "", "", "", "");
         }
 
-        usuarios.add(novo);
+        try {
+            dao.inserirUsuario(novo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         String response = "{\"message\": \"Usuário adicionado com sucesso\"}";
         byte[] bytes = response.getBytes(StandardCharsets.UTF_8);

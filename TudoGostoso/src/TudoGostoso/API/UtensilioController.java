@@ -1,5 +1,6 @@
 package TudoGostoso.API;
 
+import TudoGostoso.DAO.UtensilioDAO;
 import TudoGostoso.model.Utensilio;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
@@ -8,11 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
+import java.util.List;
 
 public class UtensilioController implements HttpHandler {
-    private static ArrayList<Utensilio> utensilios = new ArrayList<>();
-    private static int contador = 1;
+    private UtensilioDAO dao = new UtensilioDAO();
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
@@ -34,13 +34,18 @@ public class UtensilioController implements HttpHandler {
 
     private void handleGet(HttpExchange exchange) throws IOException {
         StringBuilder json = new StringBuilder("[");
-        for (int i = 0; i < utensilios.size(); i++) {
-            Utensilio u = utensilios.get(i);
-            json.append(String.format(
-                "{\"id\": \"%s\", \"utensilio\": \"%s\"}",
-                u.getIdUtensilio(), u.getUtensilio()
-            ));
-            if (i < utensilios.size() - 1) json.append(",");
+        try {
+            List<Utensilio> utensilios = dao.listarTodos();
+            for (int i = 0; i < utensilios.size(); i++) {
+                Utensilio u = utensilios.get(i);
+                json.append(String.format(
+                    "{\"id\": \"%s\", \"utensilio\": \"%s\"}",
+                    u.getIdUtensilio(), u.getUtensilio()
+                ));
+                if (i < utensilios.size() - 1) json.append(",");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         json.append("]");
 
@@ -56,12 +61,19 @@ public class UtensilioController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
+        // Parse simples do JSON
         String utensilioNome = body.replaceAll(".*\"utensilio\"\\s*:\\s*\"([^\"]+)\".*", "$1");
 
-        Utensilio novo = new Utensilio(contador++, utensilioNome);
-        utensilios.add(novo);
+        Utensilio novo = new Utensilio();
+        novo.setUtensilio(utensilioNome);
 
-        String response = "{\"message\": \"Utensilio adicionado com sucesso\"}";
+        try {
+            dao.inserirUtensilio(novo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String response = "{\"message\": \"Utensílio adicionado com sucesso\"}";
         byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
 
         exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");

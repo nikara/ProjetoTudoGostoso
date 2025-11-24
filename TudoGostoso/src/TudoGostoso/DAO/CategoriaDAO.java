@@ -80,7 +80,7 @@ public class CategoriaDAO {
     public Categoria buscarPorId(int idCategoria)throws Exception{
         Connection connection = DAO.createConnection();
         try{
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM categoria WHERE idReceita = ?");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM categoria WHERE idCategoria = ?");
             stmt.setInt(1, idCategoria);
             ResultSet rs = stmt.executeQuery();
             Categoria categoria = null;
