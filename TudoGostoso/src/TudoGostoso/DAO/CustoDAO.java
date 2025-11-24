@@ -28,11 +28,11 @@ public class CustoDAO {
         }
     }
 
-    public void deletarCusto(Custo custo) throws Exception {
+    public void deletarCusto(int id) throws Exception {
         Connection connection = DAO.createConnection();
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM custo WHERE idCusto = ?;");
-            stmt.setInt(1, custo.getId());
+            stmt.setInt(1, id);
 
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {
