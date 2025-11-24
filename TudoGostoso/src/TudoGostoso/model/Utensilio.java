@@ -1,24 +1,21 @@
 package TudoGostoso.model;
 
-import java.util.ArrayList;
+
 
 public class Utensilio  {
     
     private int idUtensilio;
     private String Utensilio;
-
-    private static ArrayList<Utensilio> utensilios = new ArrayList<>();
-    private static int contador = 1;
     
     public Utensilio() {
     };
 
     public Utensilio(int idUtensilio, String utensilio) {
-        this.idUtensilio = contador++;
+        
         this.idUtensilio = idUtensilio;
         this.Utensilio = utensilio;
 
-        utensilios.add(this);
+        
     }
     
     public void setIdUtensilio(int idUtensilio) {

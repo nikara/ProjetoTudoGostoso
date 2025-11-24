@@ -1,6 +1,6 @@
 package TudoGostoso.model;
 
-import java.util.ArrayList;
+
 
 
 public class Categoria  {
@@ -9,19 +9,19 @@ public class Categoria  {
     private String categoria;
     private Boolean status;
 
-    private static ArrayList<Categoria> categorias = new ArrayList<>();
-    private static int contador = 1;
-
     public Categoria(){};
 
     
-    public Categoria( String Categoria,Boolean Status){
-        this.idCategoria = contador++;
+    public Categoria(int idCategoria ,String Categoria,Boolean Status){
+        this.idCategoria = idCategoria;
         this.categoria = Categoria;
-        this.status = Status;
-
-        categorias.add(this);
+        this.status = Status;  
     }
+    public Categoria(String Categoria,Boolean Status){
+        this.categoria = Categoria;
+        this.status = Status;  
+    }
+
 
     public void setIdCategoria(int idCategoria){
         this.idCategoria = idCategoria;
@@ -47,16 +47,7 @@ public class Categoria  {
         return status;
     }
 
-    public static void setCategorias (ArrayList<Categoria> novasCategorias){
-        categorias = novasCategorias;
-    }
-
-    public static ArrayList<Categoria> getCategorias(){
-        return categorias;
-    }
-
-
-
+    
     @Override
     public String toString(){
         return "Categoria { id = '"+ idCategoria +"', Categoria = " + categoria + ", Status= " + status + " }";

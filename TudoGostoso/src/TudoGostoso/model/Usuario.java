@@ -5,10 +5,10 @@ public class Usuario {
     // #region Atributos do usuario;
     private int idUsuario;
     private String nome;
-    private String Email;
+    private String email;
     private String dataNascimento;
-    private int Cep;
-    private String Genero;
+    private int cep;
+    private String genero;
     private String Senha;
     private String Salt;
     private String Inscrito;
@@ -22,10 +22,10 @@ public class Usuario {
             String senha, String salt, String inscrito, String uuid) {
         this.idUsuario = idUsuario;
         this.nome = nome;
-        this.Email = email;
+        this.email = email;
         this.dataNascimento = dataNascimento;
-        this.Cep = cep;
-        this.Genero = genero;
+        this.cep = cep;
+        this.genero = genero;
         this.Senha = senha;
         this.Salt = salt;
         this.Inscrito = inscrito;
@@ -53,11 +53,11 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setdataNascimento(String dataNascimento) {
@@ -69,19 +69,19 @@ public class Usuario {
     }
 
     public void setCep(int cep) {
-        this.Cep = cep;
+        this.cep = cep;
     }
 
     public int getCep() {
-        return Cep;
+        return cep;
     }
 
     public void setGenero(String genero) {
-        this.Genero = genero;
+        this.genero = genero;
     }
 
     public String getGenero() {
-        return Genero;
+        return genero;
     }
 
     public void setSenha(String senha) {
@@ -133,7 +133,7 @@ public class Usuario {
         System.out.println("Email do Usuario:" + emailString);
         System.out.println("Senha do Usuario:" + senhaString);
 
-        if (nomeString == getNome() && emailString == getEmail() && senhaString == getSenha()) {
+        if (nomeString.equals(getNome()) && emailString.equals(getEmail()) && senhaString.equals(getSenha())) {
             System.out.println("Usuario reconhecido");
         }else{
             System.out.println("Credencias inválidas.");
@@ -147,14 +147,15 @@ public class Usuario {
     public String toString() {
         return "Usuário { IdUsuário: " + idUsuario +
                 ", Nome: " + nome +
-                ", Email: " + Email +
+                ", Email: " + email +
                 ", Data de nascimento: " + dataNascimento +
-                ", CEP: " + Cep +
-                ", Gênero: " + Genero +
+                ", CEP: " + cep +
+                ", Genero: " + genero +
                 ", Senha: " + Senha +
                 ", Salt: " + Salt +
-                ", Inscrito" + Inscrito +
-                ", UUID: " + Uuid;
+                ", Inscrito: " + Inscrito +
+                ", UUID: " + Uuid +
+                ")";
     }
     // #endregion
 }
