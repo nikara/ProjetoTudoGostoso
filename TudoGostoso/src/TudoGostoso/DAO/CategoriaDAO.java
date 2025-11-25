@@ -34,12 +34,12 @@ public class CategoriaDAO {
 
     }
 
-    public void deletarCategoria(Categoria categoria) throws Exception {
+    public void deletarCategoria(int id) throws Exception {
         Connection connection = DAO.createConnection();
 
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM categoria WHERE idCategoria = ?;");
-            stmt.setInt(1, categoria.getIdCategoria());
+            stmt.setInt(1, id);
 
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {

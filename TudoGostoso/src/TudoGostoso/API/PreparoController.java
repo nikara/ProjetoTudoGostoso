@@ -61,7 +61,7 @@ public class PreparoController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        // Parse simples do JSON
+        
         String modoPreparo = body.replaceAll(".*\"modoPreparo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String urlVideo = body.replaceAll(".*\"urlVideo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String tempoDePreparo = body.replaceAll(".*\"tempoDePreparo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
@@ -83,4 +83,58 @@ public class PreparoController implements HttpHandler {
             os.write(bytes);
         }
     }
+
+    private void handlePut (HttpExchange exchange) throws IOException{
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+
+        String idStr = body.replace(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+        String modoPreparo = body.replaceAll(".*\"modoPreparo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        String urlVideo = body.replaceAll(".*\"urlVideo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        String tempoDePreparo = body.replaceAll(".*\"tempoDePreparo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        try{
+            int id = Integer.parseInt(idStr);
+            Preparo atualizado = new Preparo();
+            atualizado.setIdPreparo(id);
+            atualizado.setModoPreparo(modoPreparo);
+            atualizado.setUrlVideo(urlVideo);
+            atualizado.setTempoDePreparo(tempoDePreparo);
+            
+            dao.atualizarPreparo(atualizado);
+
+            String response = "{\"message\": \"Preparo atualizado com sucesso\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().add("Content-type", "aplication/json; charset=UTF-8");
+            exchange.sendResponseHeaders(200, bytes.length);
+            try(OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+        }catch (Exception e ){
+            e.printStackTrace();
+            String response = "{\"error\": \"Falha ao atualizar Preparo}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, bytes.length);
+            try(OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+        }
+
+    }
+
+    private void handleDelete(HttpExchange exchange) throws IOException{
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+
+        String idStr = body.replace(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+        try {
+            int id = Integer.parseInt(idStr);
+            dao.deletarPreparo(id);
+
+            String response = "{\"message\": \"Preparo deletado com sucesso\"}";
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
 }

@@ -115,7 +115,6 @@ public class CustoController implements HttpHandler {
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
             exchange.sendResponseHeaders(400, bytes.length);
             try (OutputStream os = exchange.getResponseBody()) {
-
                 os.write(bytes);
             }
         }
