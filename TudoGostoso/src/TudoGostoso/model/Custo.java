@@ -24,7 +24,7 @@ public class Custo {
     public void setIdCusto(int idCusto){
         this.idCusto = idCusto;
     }
-    public int getId(){
+    public int getIdCusto(){
         return idCusto;
     }
 

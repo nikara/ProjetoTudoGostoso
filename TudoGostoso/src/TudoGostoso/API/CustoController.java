@@ -44,7 +44,7 @@ public class CustoController implements HttpHandler {
                 Custo c = custos.get(i);
                 json.append(String.format(
                         "{\"id\": \"%s\", \"custo\": \"%s\"}",
-                        c.getId(), c.getCusto()));
+                        c.getIdCusto(), c.getCusto()));
                 if (i < custos.size() - 1)
                     json.append(",");
             }
@@ -91,7 +91,7 @@ public class CustoController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*(\\d+).*", "$1");
         String custoValor = body.replaceAll(".*\"custo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
 
         try {
