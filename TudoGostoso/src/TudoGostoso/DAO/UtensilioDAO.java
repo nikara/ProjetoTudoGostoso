@@ -28,11 +28,11 @@ public class UtensilioDAO {
         }
     }
 
-    public void deletarUtensilio(Utensilio utensilio) throws Exception {
+    public void deletarUtensilio(int id) throws Exception {
         Connection connection = DAO.createConnection();
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM utensilio WHERE idUtensilio = ?;");
-            stmt.setInt(1, utensilio.getIdUtensilio());
+            stmt.setInt(1, id);
 
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {

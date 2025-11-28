@@ -1,3 +1,5 @@
+DROP database Tudogostoso
+
 -- Criação do Banco TudoGostoso
 create database TudoGostoso;
 use TudoGostoso;
@@ -80,5 +82,7 @@ create table usuario (
 );
 
 INSERT INTO usuario (nome,email,dataNascimento,cep,genero,senha,salt,inscrito,uuid) VALUES ('João da Silva','joao.silva@example.com','1990-05-12',84000000,'Masculino','123abcSenhaHash','123Salt','Sim','abcd-1234-uuid-teste');
-
+custo
 select * from usuario;
+
+SET GLOBAL time_zone = 'SYSTEM';

@@ -32,12 +32,12 @@ public class PreparoDAO {
         }
     }
 
-    public void deletarPreparo(Preparo preparo) throws Exception{
+    public void deletarPreparo(int idPreparo) throws Exception{
         Connection connection = DAO.createConnection();
 
         try{
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM preparo WHERE idPreparo = ?");
-            stmt.setInt(1, preparo.getIdPreparo());
+            stmt.setInt(1, idPreparo);
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {
                 throw new Exception("Nenhum preparo deletada");

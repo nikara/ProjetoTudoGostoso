@@ -21,6 +21,10 @@ public class UtensilioController implements HttpHandler {
             handleGet(exchange);
         } else if (method.equalsIgnoreCase("POST")) {
             handlePost(exchange);
+        } else if (method.equalsIgnoreCase("PUT")) {
+            handlePut(exchange);
+        } else if (method.equalsIgnoreCase("DELETE")){
+            handleDelete(exchange);
         } else {
             String response = "Método não suportado";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
@@ -82,4 +86,70 @@ public class UtensilioController implements HttpHandler {
             os.write(bytes);
         }
     }
+
+    private void handlePut(HttpExchange exchange) throws IOException{
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+
+        String idStr = body.replace(".*\"id\"\\s*\"?(\\d+)\"?.*", "$1");
+        String utensilio = body.replace(".*\"utensilio\"\\s*\"([^\"]+)\".*", "$1");
+
+        try{
+            int id = Integer.parseInt(idStr);
+            Utensilio atualizado = new Utensilio();
+            atualizado.setIdUtensilio(id);
+            atualizado.setUtensilio(utensilio);
+
+            dao.atualizarUtensilio(atualizado);
+
+            String response = "{\"message\": \"Utensilio atualizado com sucesso\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(200, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+        }catch (Exception e ){
+            e.printStackTrace();
+            String response = "{\"error\": \"Falha ao atualizar utensilio\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+
+        }
+    }
+
+    private void handleDelete(HttpExchange exchange) throws IOException{
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+
+        String idStr = body.replaceAll(".\"id\"\\s*:\\s*\"?(\\d+)\"?.*","$1");
+
+        try{
+            int id = Integer.parseInt(idStr);
+            dao.deletarUtensilio(id);
+
+            String response = "{\"message\": \"Utensilio deletado com sucesso\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(200, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            String response = "{\"error\": \"Falha ao deletar Utensilio\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, bytes.length);
+            try(OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+        }
+    }
+
+
+
+
 }

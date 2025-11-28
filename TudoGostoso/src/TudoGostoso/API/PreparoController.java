@@ -21,7 +21,11 @@ public class PreparoController implements HttpHandler {
             handleGet(exchange);
         } else if (method.equalsIgnoreCase("POST")) {
             handlePost(exchange);
-        } else {
+        } else if (method.equalsIgnoreCase("PUT")){
+            handlePut(exchange);
+        } else if (method.equalsIgnoreCase("DELETE")){
+            handleDelete(exchange);
+        }else {
             String response = "Método não suportado";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=UTF-8");
@@ -131,10 +135,23 @@ public class PreparoController implements HttpHandler {
             dao.deletarPreparo(id);
 
             String response = "{\"message\": \"Preparo deletado com sucesso\"}";
-            
-        } catch (Exception e) {
-            // TODO: handle exception
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(200, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()){
+                os.write(bytes);
+            }
+        } catch (Exception e){
+                e.printStackTrace();
+                String response = "{\"error\": \"Falha ao deletar preparo\"}";
+                byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+                exchange.sendResponseHeaders(400, bytes.length);
+                try (OutputStream os = exchange.getResponseBody()){
+                    os.write(bytes);
+                }
         }
+            
+    
     }
 
 }
