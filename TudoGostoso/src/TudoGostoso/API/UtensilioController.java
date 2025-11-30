@@ -4,6 +4,8 @@ import TudoGostoso.DAO.UtensilioDAO;
 import TudoGostoso.model.Utensilio;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,11 +67,11 @@ public class UtensilioController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        // Parse simples do JSON
-        String utensilioNome = body.replaceAll(".*\"utensilio\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        
+        String utensilio = body.replaceAll(".*\"utensilio\"\\s*:\\s*\"([^\"]+)\".*", "$1");
 
         Utensilio novo = new Utensilio();
-        novo.setUtensilio(utensilioNome);
+        novo.setUtensilio(utensilio);
 
         try {
             dao.inserirUtensilio(novo);
@@ -88,16 +90,17 @@ public class UtensilioController implements HttpHandler {
     }
 
     private void handlePut(HttpExchange exchange) throws IOException{
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+        String body = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replace(".*\"id\"\\s*\"?(\\d+)\"?.*", "$1");
-        String utensilio = body.replace(".*\"utensilio\"\\s*\"([^\"]+)\".*", "$1");
+
+        int idStr = json.get("id").getAsInt();
+        String utensilio = json.get("utensilio").getAsString();
 
         try{
-            int id = Integer.parseInt(idStr);
+            
             Utensilio atualizado = new Utensilio();
-            atualizado.setIdUtensilio(id);
+            atualizado.setIdUtensilio(idStr);
             atualizado.setUtensilio(utensilio);
 
             dao.atualizarUtensilio(atualizado);
@@ -122,14 +125,15 @@ public class UtensilioController implements HttpHandler {
     }
 
     private void handleDelete(HttpExchange exchange) throws IOException{
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+        
+        String body = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".\"id\"\\s*:\\s*\"?(\\d+)\"?.*","$1");
+        int  idStr = json.get("id").getAsInt();
 
         try{
-            int id = Integer.parseInt(idStr);
-            dao.deletarUtensilio(id);
+            
+            dao.deletarUtensilio(idStr);
 
             String response = "{\"message\": \"Utensilio deletado com sucesso\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);

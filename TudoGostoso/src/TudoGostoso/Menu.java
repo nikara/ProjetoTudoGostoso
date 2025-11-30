@@ -22,13 +22,21 @@ public class Menu {
         server.createContext("/custos", new CustoController());
         server.createContext("/preparos", new PreparoController());
         server.createContext("/utensilios", new UtensilioController());
+        server.createContext("/receitas", new ReceitaController());
 
         // Iniciando o servidor
         server.setExecutor(null);
         server.start();
         System.out.println("Servidor rodando em http://localhost:8089/");
+        System.out.println("Endpoints disponíveis:");
+        System.out.println("GET/POST/PUT/DELETE -> /usuarios");
+        System.out.println("GET/POST/PUT/DELETE -> /categorias");
+        System.out.println("GET/POST/PUT/DELETE -> /custos");
+        System.out.println("GET/POST/PUT/DELETE -> /preparos");
+        System.out.println("GET/POST/PUT/DELETE -> /utensilios");
+        System.out.println("GET/POST/PUT/DELETE -> /receitas");
 
-        // Exemplo de integração com banco de dados
+        /*  Exemplo de integração com banco de dados
         try {
             Connection conexao = DAO.createConnection();
 
@@ -47,5 +55,7 @@ public class Menu {
         } catch (Exception e) {
             System.out.println("Erro ao inserir custo: " + e);
         }
+        */
+
     }
 }

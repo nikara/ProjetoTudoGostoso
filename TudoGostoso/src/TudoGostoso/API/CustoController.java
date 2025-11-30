@@ -4,12 +4,17 @@ import TudoGostoso.DAO.CustoDAO;
 import TudoGostoso.model.Custo;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+
+
 
 public class CustoController implements HttpHandler {
     private CustoDAO dao = new CustoDAO();
@@ -88,20 +93,18 @@ public class CustoController implements HttpHandler {
     }
 
     private void handlePut(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*(\\d+).*", "$1");
-        String custoValor = body.replaceAll(".*\"custo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        int id = json.get("id").getAsInt();
+        String custoValor = json.get("custo").getAsString();
 
-        try {
-            int id = Integer.parseInt(idStr);
+        try{
             Custo atualizado = new Custo();
             atualizado.setIdCusto(id);
             atualizado.setCusto(custoValor);
 
             dao.atualizarCusto(atualizado);
-
             String response = "{\"message\": \"Custo atualizado com sucesso\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
             exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
@@ -109,7 +112,7 @@ public class CustoController implements HttpHandler {
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(bytes);
             }
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
             String response = "{\"error\": \"Falha ao atualizar custo\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
@@ -119,16 +122,17 @@ public class CustoController implements HttpHandler {
             }
         }
 
+
+
     }
 
     private void handleDelete(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+        int id = json.get("id").getAsInt();
 
         try {
-            int id = Integer.parseInt(idStr);
             dao.deletarCusto(id);
 
             String response = "{\"message\": \"Custo deletado com sucesso\"}";

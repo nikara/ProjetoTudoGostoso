@@ -4,6 +4,8 @@ import TudoGostoso.DAO.CategoriaDAO;
 import TudoGostoso.model.Categoria;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -87,18 +89,17 @@ public class CategoriaController implements HttpHandler {
     }
 
     private void handlePut(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
-        String categoriaNome = body.replaceAll(".*\"categoria\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String sStatus = body.replaceAll(".*\"status\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        boolean status = sStatus.equals("true");
+        int id = json.get("id").getAsInt();
+        String categoria = json.get("categoria").getAsString();
+        boolean status = json.get("status").getAsBoolean();
+
         try {
-            int id = Integer.parseInt(idStr);
             Categoria atualizado = new Categoria();
             atualizado.setIdCategoria(id);
-            atualizado.setCategoria(categoriaNome);
+            atualizado.setCategoria(categoria);
             atualizado.setStatus(status);
 
             dao.atualizarCategoria(atualizado);
@@ -122,12 +123,12 @@ public class CategoriaController implements HttpHandler {
     }
 
     private void handleDelete(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+        int id = json.get("id").getAsInt();
         try {
-            int id = Integer.parseInt(idStr);
+            
             dao.deletarCategoria(id);
 
             String response = "{\"message\": \"Categoria deletado com sucesso\"}";
