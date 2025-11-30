@@ -23,6 +23,10 @@ public class UsuarioController implements HttpHandler {
             handleGet(exchange);
         } else if (method.equalsIgnoreCase("POST")) {
             handlePost(exchange);
+        } else if (method.equalsIgnoreCase("PUT")) {
+            handlePut(exchange);
+        } else if (method.equalsIgnoreCase("DELETE")) {
+            handleDelete(exchange);
         } else {
             String response = "Método não suportado";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
@@ -42,10 +46,10 @@ public class UsuarioController implements HttpHandler {
                 Usuario u = usuarios.get(i);
                 String tipo = (u instanceof Administrador) ? "Administrador" : "Consumidor";
                 json.append(String.format(
-                    "{\"id\": \"%s\", \"nome\": \"%s\", \"email\": \"%s\", \"tipo\": \"%s\"}",
-                    u.getIdUsuario(), u.getNome(), u.getEmail(), tipo
-                ));
-                if (i < usuarios.size() - 1) json.append(",");
+                        "{\"id\": \"%s\", \"nome\": \"%s\", \"email\": \"%s\", \"tipo\": \"%s\"}",
+                        u.getIdUsuario(), u.getNome(), u.getEmail(), tipo));
+                if (i < usuarios.size() - 1)
+                    json.append(",");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +68,6 @@ public class UsuarioController implements HttpHandler {
         InputStream is = exchange.getRequestBody();
         String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
-        
         String nome = body.replaceAll(".*\"nome\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String email = body.replaceAll(".*\"email\"\\s*:\\s*\"([^\"]+)\".*", "$1");
         String tipo = body.replaceAll(".*\"tipo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
@@ -89,6 +92,65 @@ public class UsuarioController implements HttpHandler {
         exchange.sendResponseHeaders(201, bytes.length);
         try (OutputStream os = exchange.getResponseBody()) {
             os.write(bytes);
+        }
+    }
+
+    private void handlePut(HttpExchange exchange) throws IOException {
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+
+        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        String nome = body.replaceAll(".*\"nome\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        String email = body.replaceAll(".*\"email\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        String tipo = body.replaceAll(".*\"tipo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+
+        Usuario atualizado;
+        if (tipo.equalsIgnoreCase("administrador")) {
+            atualizado = new Administrador(Integer.parseInt(idStr), nome, email, "", 0, "", "", "", "", "");
+        } else {
+            atualizado = new Consumidor(Integer.parseInt(idStr), nome, email, "", 0, "", "", "", "", "");
+        }
+
+        try {
+            dao.atualizarUsuario(atualizado);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String response = "{\"message\": \"Usuário atualizado com sucesso\"}";
+        byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+
+        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+        exchange.sendResponseHeaders(200, bytes.length);
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(bytes);
+        }
+    }
+
+    private void handleDelete(HttpExchange exchange) throws IOException {
+        InputStream is = exchange.getRequestBody();
+        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+
+        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+
+        try {
+            int id = Integer.parseInt(idStr);
+            dao.deletarUsuario(id);
+            String response = "{\"message\": \"Usuario deletado com sucesso\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.getRequestHeaders().add("Content-Tyoe", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(200, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(bytes);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            String response = "{\"error\": \"Falha ao deletar Usuario\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+            exchange.sendResponseHeaders(400, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(bytes);
+            }
         }
     }
 }

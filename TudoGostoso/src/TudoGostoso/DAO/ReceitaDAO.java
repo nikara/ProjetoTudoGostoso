@@ -15,23 +15,27 @@ public class ReceitaDAO {
         Connection connection = DAO.createConnection();
 
         PreparedStatement stmt = connection.prepareStatement(
-            "INSERT into receita (titulo,descricao,imagem) VALUES (?,?,?);"
+            "INSERT into receita (titulo,descricao,imagem, idCusto, idCategoria, idPreparo, idUtensilio) VALUES (?,?,?,?,?,?,?);"
             );
         stmt.setString(1, receita.getTitulo());
         stmt.setString(2, receita.getDescricao());
         stmt.setString(3, receita.getImagem());
+        stmt.setInt(4, receita.getCusto().getIdCusto());
+        stmt.setInt(5, receita.getCategoria().getIdCategoria());
+        stmt.setInt(6, receita.getPreparo().getIdPreparo());
+        stmt.setInt(7, receita.getUtensilio().getIdUtensilio());
 
         stmt.executeUpdate();
         stmt.close();
         DAO.closeConnection();
     }
 
-    public void deletarReceita(Receita receita) throws Exception{
+    public void deletarReceita(Integer id) throws Exception{
         Connection connection = DAO.createConnection();
         try{
             PreparedStatement stmt = connection.prepareStatement(
                 "DELETE FROM receita WHERE idReceita = ?; ");
-            stmt.setInt(1, receita.getIdReceita());
+            stmt.setInt(1,id);
 
             int verifica = stmt.executeUpdate();
             if( verifica == 0){
@@ -73,7 +77,22 @@ public class ReceitaDAO {
         ResultSet rs = stmt.executeQuery();
         Receita receita = null;
         if(rs.next()){
-            receita = new Receita(rs.getString("titulo"), rs.getString("descricao"),rs.getString("imagem"),null,null,null,null);
+            CustoDAO custoDAO = new CustoDAO();
+            PreparoDAO preparoDAO = new PreparoDAO();
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            UtensilioDAO utensilioDAO = new UtensilioDAO();
+
+            
+            
+            receita = new Receita(
+            rs.getString("titulo"), 
+            rs.getString("descricao"),
+            rs.getString("imagem"),
+            custoDAO.buscarCustoPorId(rs.getInt("idCusto")),
+            preparoDAO.buscarPreparoPorId(rs.getInt("idPreparo")),
+            categoriaDAO.buscarCategoriaPorId(rs.getInt("idCategoria")),
+            utensilioDAO.buscarUtensilioPorId(rs.getInt("idUtensilio"))
+            );
             receita.setIdReceita(rs.getInt("idReceita"));
         }
         rs.close();
@@ -86,7 +105,7 @@ public class ReceitaDAO {
     public List<Receita> listarTodas() throws Exception{
         Connection connection = DAO.createConnection();
 
-        ResultSet rs = connection.createStatement().executeQuery("SELECT idReceita,titulo,descricao,imagem FROM receitas;");
+        ResultSet rs = connection.createStatement().executeQuery("SELECT idReceita,titulo,descricao,imagem FROM receita;");
         List<Receita> lista = new ArrayList<>();
 
         while (rs.next()) {

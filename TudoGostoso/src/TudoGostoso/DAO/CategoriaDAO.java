@@ -77,7 +77,7 @@ public class CategoriaDAO {
         }
     }
 
-    public Categoria buscarPorId(int idCategoria)throws Exception{
+    public Categoria buscarCategoriaPorId(int idCategoria)throws Exception{
         Connection connection = DAO.createConnection();
         try{
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM categoria WHERE idCategoria = ?");

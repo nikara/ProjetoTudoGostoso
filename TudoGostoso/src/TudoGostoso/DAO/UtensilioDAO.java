@@ -65,7 +65,7 @@ public class UtensilioDAO {
         }
     }
 
-    public Utensilio buscarPorId(int idUtensilio) throws Exception {
+    public Utensilio buscarUtensilioPorId(int idUtensilio) throws Exception {
         Connection connection = DAO.createConnection();
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM utensilio WHERE idUtensilio = ?;");

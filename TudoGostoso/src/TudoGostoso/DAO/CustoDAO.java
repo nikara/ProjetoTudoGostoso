@@ -51,7 +51,7 @@ public class CustoDAO {
         try {
             PreparedStatement stmt = connection.prepareStatement("UPDATE custo SET custo = ? WHERE idCusto = ?;");
             stmt.setString(1, custo.getCusto());
-            stmt.setInt(2, custo.getId());
+            stmt.setInt(2, custo.getIdCusto());
 
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {
@@ -65,7 +65,7 @@ public class CustoDAO {
         }
     }
 
-    public Custo buscarPorId(int idCusto) throws Exception {
+    public Custo buscarCustoPorId(int idCusto) throws Exception {
         Connection connection = DAO.createConnection();
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM custo WHERE idCusto = ?;");

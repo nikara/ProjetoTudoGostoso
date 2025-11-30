@@ -72,7 +72,7 @@ public class PreparoDAO {
             throw new Exception("Erro ao atualizar preparo" + e.getMessage(), e);
         }
     }
-        public Preparo buscarPorId(int idPreparo)throws Exception{
+        public Preparo buscarPreparoPorId(int idPreparo)throws Exception{
         Connection connection = DAO.createConnection();
         
         try{

@@ -37,11 +37,11 @@ public class UsuarioDAO {
         }
     }
 
-    public void deletarUsuario(Usuario usuario) throws Exception {
+    public void deletarUsuario(Integer id) throws Exception {
         Connection connection = DAO.createConnection();
         try {
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM usuario WHERE idUsuario = ?;");
-            stmt.setInt(1, usuario.getIdUsuario());
+            stmt.setInt(1, id);
 
             int verifica = stmt.executeUpdate();
             if (verifica == 0) {
