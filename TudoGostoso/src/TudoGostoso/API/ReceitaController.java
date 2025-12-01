@@ -5,6 +5,8 @@ import TudoGostoso.model.*;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -114,21 +116,22 @@ public class ReceitaController implements HttpHandler {
     }
 
     private void handlePut(HttpExchange exchange) throws IOException{
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*(\\d+).*", "$1");
-        String titulo =  body.replaceAll(".*\"nome\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String descricao = body.replaceAll(".*\"descricao\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String imagem = body.replaceAll(".*\"descricao\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        String body = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        int custoId = Integer.parseInt((body.replaceAll(".*\"custoId\"\\s*:\\s*(\\d+).*", "$1")));
-        int categoriaId = Integer.parseInt((body.replaceAll(".*\"categoriaId\"\\s*:\\s*(\\d+).*", "$1")));
-        int preparoId = Integer.parseInt((body.replaceAll(".*\"preparoId\"\\s*:\\s*(\\d+).*", "$1")));
-        int utensilioId = Integer.parseInt((body.replaceAll(".*\"utensilioId\"\\s*:\\s*(\\d+).*", "$1")));
 
+
+        int idStr = json.get("id").getAsInt();
+        String titulo = json.get("nome").getAsString();
+        String descricao = json.get("descricao").getAsString();
+        String imagem = json.get("imagem").getAsString();
+
+        int custoId = json.get("custoId").getAsInt();
+        int categoriaId = json.get("categoriaId").getAsInt();
+        int preparoId = json.get("preparoId").getAsInt();
+        int utensilioId = json.get("utensilioId").getAsInt();
         try{
-            int id = Integer.parseInt(idStr);
             Receita atualizada = new Receita(
                 titulo, 
                 descricao, 
@@ -136,8 +139,10 @@ public class ReceitaController implements HttpHandler {
                 custoDAO.buscarCustoPorId(custoId), 
                 preparoDAO.buscarPreparoPorId(preparoId), 
                 categoriaDAO.buscarCategoriaPorId(categoriaId), 
-                utensilioDAO.buscarUtensilioPorId(utensilioId));
-                atualizada.setIdReceita(id);
+                utensilioDAO.buscarUtensilioPorId(utensilioId)
+            );
+                atualizada.setIdReceita(idStr);
+                
 
                 dao.atualizarReceita(atualizada);
 
@@ -161,14 +166,16 @@ public class ReceitaController implements HttpHandler {
     }
 
     private void handleDelete(HttpExchange exchange) throws IOException{
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+        
+        String body = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+
+        int idStr = json.get("id").getAsInt();
 
         try{
-            int id = Integer.parseInt(idStr);
-            dao.deletarReceita(id);
+            
+            dao.deletarReceita(idStr);
 
             String response = "{\"message\": \"Receita deletado com sucesso\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);

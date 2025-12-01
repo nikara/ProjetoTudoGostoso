@@ -5,6 +5,8 @@ import TudoGostoso.model.Usuario;
 import TudoGostoso.model.Administrador;
 import TudoGostoso.model.Consumidor;
 import com.sun.net.httpserver.HttpHandler;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -96,19 +98,19 @@ public class UsuarioController implements HttpHandler {
     }
 
     private void handlePut(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String nome = body.replaceAll(".*\"nome\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String email = body.replaceAll(".*\"email\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String tipo = body.replaceAll(".*\"tipo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-
+        int idStr = json.get("id").getAsInt();
+        String nome = json.get("nome").getAsString();
+        String email = json.get("email").getAsString();
+        String tipo = json.get("tipo").getAsString();
         Usuario atualizado;
         if (tipo.equalsIgnoreCase("administrador")) {
-            atualizado = new Administrador(Integer.parseInt(idStr), nome, email, "", 0, "", "", "", "", "");
+            atualizado = new Administrador(idStr, nome, email, "", 0, "", "", "", "", "");
         } else {
-            atualizado = new Consumidor(Integer.parseInt(idStr), nome, email, "", 0, "", "", "", "", "");
+            atualizado = new Consumidor(idStr, nome, email, "", 0, "", "", "", "", "");
         }
 
         try {
@@ -128,14 +130,17 @@ public class UsuarioController implements HttpHandler {
     }
 
     private void handleDelete(HttpExchange exchange) throws IOException {
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replaceAll(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+
+
+        int idStr = json.get("id").getAsInt();
 
         try {
-            int id = Integer.parseInt(idStr);
-            dao.deletarUsuario(id);
+           
+            dao.deletarUsuario(idStr);
             String response = "{\"message\": \"Usuario deletado com sucesso\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
             exchange.getRequestHeaders().add("Content-Tyoe", "application/json; charset=UTF-8");

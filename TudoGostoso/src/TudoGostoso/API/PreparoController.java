@@ -3,6 +3,8 @@ package TudoGostoso.API;
 import TudoGostoso.DAO.PreparoDAO;
 import TudoGostoso.model.Preparo;
 import com.sun.net.httpserver.HttpHandler;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -89,17 +91,19 @@ public class PreparoController implements HttpHandler {
     }
 
     private void handlePut (HttpExchange exchange) throws IOException{
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        
+        String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
 
-        String idStr = body.replace(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
-        String modoPreparo = body.replaceAll(".*\"modoPreparo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String urlVideo = body.replaceAll(".*\"urlVideo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
-        String tempoDePreparo = body.replaceAll(".*\"tempoDePreparo\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
+
+        int idStr = json.get("id").getAsInt();
+        String modoPreparo = json.get("mdoPreparo").getAsString();
+        String urlVideo = json.get("urlVideo").getAsString();
+        String tempoDePreparo = json.get("tempoDePreparo").getAsString();
         try{
-            int id = Integer.parseInt(idStr);
+            
             Preparo atualizado = new Preparo();
-            atualizado.setIdPreparo(id);
+            atualizado.setIdPreparo(idStr);
             atualizado.setModoPreparo(modoPreparo);
             atualizado.setUrlVideo(urlVideo);
             atualizado.setTempoDePreparo(tempoDePreparo);
@@ -126,13 +130,14 @@ public class PreparoController implements HttpHandler {
     }
 
     private void handleDelete(HttpExchange exchange) throws IOException{
-        InputStream is = exchange.getRequestBody();
-        String body = new String(is.readAllBytes(),StandardCharsets.UTF_8);
+        String body = new String(exchange.getRequestBody().readAllBytes(),StandardCharsets.UTF_8);
+        JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-        String idStr = body.replace(".*\"id\"\\s*:\\s*\"?(\\d+)\"?.*", "$1");
+
+        int idStr = json.get("id").getAsInt();
         try {
-            int id = Integer.parseInt(idStr);
-            dao.deletarPreparo(id);
+            
+            dao.deletarPreparo(idStr);
 
             String response = "{\"message\": \"Preparo deletado com sucesso\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
