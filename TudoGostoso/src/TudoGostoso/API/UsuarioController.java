@@ -83,18 +83,19 @@ public class UsuarioController implements HttpHandler {
 
         try {
             dao.inserirUsuario(novo);
+             String response = "{\"message\": \"Usuário adicionado com sucesso\"}";
+            byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+
+            exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
+            exchange.sendResponseHeaders(201, bytes.length);
+            try (OutputStream os = exchange.getResponseBody()) {
+                os.write(bytes);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        String response = "{\"message\": \"Usuário adicionado com sucesso\"}";
-        byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
-
-        exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
-        exchange.sendResponseHeaders(201, bytes.length);
-        try (OutputStream os = exchange.getResponseBody()) {
-            os.write(bytes);
-        }
+       
     }
 
     private void handlePut(HttpExchange exchange) throws IOException {
@@ -134,8 +135,6 @@ public class UsuarioController implements HttpHandler {
         String body = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
         JsonObject json = JsonParser.parseString(body).getAsJsonObject();
 
-
-
         int idStr = json.get("id").getAsInt();
 
         try {
@@ -143,7 +142,8 @@ public class UsuarioController implements HttpHandler {
             dao.deletarUsuario(idStr);
             String response = "{\"message\": \"Usuario deletado com sucesso\"}";
             byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
-            exchange.getRequestHeaders().add("Content-Tyoe", "application/json; charset=UTF-8");
+
+            exchange.getResponseHeaders().add("Content-Type", "application/json; charset=UTF-8");
             exchange.sendResponseHeaders(200, bytes.length);
             try (OutputStream os = exchange.getResponseBody()) {
                 os.write(bytes);

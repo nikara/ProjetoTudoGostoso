@@ -56,14 +56,14 @@ idReceita integer primary key auto_increment not null,
 titulo varchar(120),
 descricao varchar(120),
 imagem varchar(120),
-custo integer,
-categoria integer,
-preparo integer,
-utensilio integer,
-foreign key (custo) references custo (idCusto),
-foreign key (categoria) references categoria (idCategoria),
-foreign key (preparo) references preparo (idPreparo),
-foreign key (utensilio) references utensilio (idUtensilio)
+idCusto integer,
+idCategoria integer,
+idPreparo integer,
+idUtensilio integer,
+foreign key (idCusto) references custo (idCusto),
+foreign key (idCategoria) references categoria (idCategoria),
+foreign key (idPreparo) references preparo (idPreparo),
+foreign key (idUtensilio) references utensilio (idUtensilio)
 );
 
 -- Tabela usuário
@@ -72,7 +72,7 @@ create table usuario (
     idUsuario int auto_increment primary key,
     nome varchar(100),
     Email varchar(150),
-    dataNascimento date,
+    dataNascimento varchar(150),
     Cep int,
     Genero varchar(20),
     Senha varchar(255),
